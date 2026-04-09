@@ -356,15 +356,35 @@ function cqty(k, d){
 
 function openCheckout(){ document.getElementById('scrCheckout').classList.add('on'); }
 
-function submitOrder(){
+async function submitOrder(){
   const name = document.getElementById('iName').value.trim();
   const phone = document.getElementById('iPhone').value.trim();
   const addr = document.getElementById('iAddr').value.trim();
   if(!name || !phone || !addr){ alert("Iltimos, barcha maydonlarni toldiring!"); return; }
+
   const total = Object.values(cart).reduce((s,i) => s + i.price * i.qty, 0);
+  const itemsText = Object.values(cart).map(i => "  • " + i.em + " " + i.name + " x" + i.qty + " = " + (i.price*i.qty).toLocaleString() + " som").join("\n");
+
+  const BOT_TOKEN = "8796024744:AAHgqewn8vc4JieUw9Zl9Bx7BdSWmA6ZM5Q";
+  const ADMIN_ID = "8321214528";
+
+  const msg = "🔔 YANGI BUYURTMA!\n\n" +
+    "👤 Ism: " + name + "\n" +
+    "📞 Tel: " + phone + "\n" +
+    "🏠 Manzil: " + addr + "\n\n" +
+    "🛒 Mahsulotlar:\n" + itemsText + "\n\n" +
+    "💰 Jami: " + total.toLocaleString() + " som";
+
+  try{
+    await fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({chat_id: ADMIN_ID, text: msg})
+    });
+  } catch(e){ console.log("Xabar yuborishda xato:", e); }
+
   const order = {id:Date.now(), date:new Date().toLocaleDateString('uz'), items:{...cart}, total, status:'Qabul qilindi'};
   orders.unshift(order);
-  try{ tg.sendData(JSON.stringify({name, phone, address:addr, items:cart, total})); } catch(e){}
   cart = {}; save(); updateBadge();
   closeScr('scrCheckout'); closeScr('scrCart');
   document.getElementById('scrSuccess').classList.add('on');
