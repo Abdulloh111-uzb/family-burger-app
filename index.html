@@ -25,7 +25,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 .page{display:none;padding:20px 16px 100px;animation:up .2s ease}
 .page.on{display:block}
 @keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:4px}
 .cat-card{background:var(--card);border-radius:var(--r);padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;border:1.5px solid transparent;transition:all .2s}
 .cat-card:active{transform:scale(.97)}
 .cat-card.on{border-color:var(--gold);background:var(--card2)}
@@ -59,8 +59,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 .qty-n{font-size:20px;font-weight:700;min-width:28px;text-align:center}
 .big-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:16px;font-weight:700;padding:16px;cursor:pointer;letter-spacing:.3px}
 .big-btn:active{opacity:.85}
-.big-btn.orange{background:var(--orange);color:#fff}
-.big-btn.green{background:var(--green);color:#fff}
 .cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
 .ci{background:var(--card);border-radius:var(--r);padding:12px;display:flex;gap:12px;align-items:center}
 .ci-img{width:58px;height:58px;border-radius:10px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden}
@@ -87,23 +85,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 .sico{font-size:72px;margin-bottom:20px}
 .stitle{font-size:22px;font-weight:700;color:var(--gold);margin-bottom:10px}
 .stxt{font-size:14px;color:var(--muted);line-height:1.7}
-.order-card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;border:1px solid var(--border)}
-.oh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.oid{font-size:13px;font-weight:700}
-.odate{font-size:11px;color:var(--muted);margin-top:2px}
-.ostatus{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(245,166,35,.12);color:var(--gold)}
-.oitem{font-size:13px;color:var(--muted);padding:2px 0}
-.ototal{font-size:14px;font-weight:700;color:var(--gold);margin-top:8px}
-.clink{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1px solid var(--border);text-decoration:none;transition:background .15s}
-.clink:active{background:var(--card2)}
-.cico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.cico.ph{background:rgba(245,166,35,.15)}
-.cico.ig{background:rgba(255,60,172,.15)}
-.cico.tg{background:rgba(55,138,221,.15)}
-.clbl h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
-.clbl p{font-size:13px;color:var(--muted)}
-.carr{margin-left:auto;color:var(--muted);font-size:20px;line-height:1}
-.scr-pad{padding:20px 16px 100px}
 </style>
 </head>
 <body>
@@ -131,18 +112,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 
 <div class="page on" id="page-catalog">
   <div class="cat-grid">
-    <div class="cat-card on" onclick="selectCat('Burgerlar',this)">
-      <div class="cat-icon">🍔</div>
-      <div class="cat-name">Burgerlar</div>
-    </div>
-    <div class="cat-card" onclick="selectCat('Ichimliklar',this)">
-      <div class="cat-icon">🥤</div>
-      <div class="cat-name">Ichimliklar</div>
-    </div>
-    <div class="cat-card" onclick="selectCat('Shirinliklar',this)">
-      <div class="cat-icon">🍰</div>
-      <div class="cat-name">Shirinliklar</div>
-    </div>
+    <div class="cat-card on" onclick="selectCat('Burgerlar',this)"><div class="cat-icon">🍔</div><div class="cat-name">Burgerlar</div></div>
+    <div class="cat-card" onclick="selectCat('Ichimliklar',this)"><div class="cat-icon">🥤</div><div class="cat-name">Ichimliklar</div></div>
+    <div class="cat-card" onclick="selectCat('Muzqaymoq',this)"><div class="cat-icon">🍦</div><div class="cat-name">Muzqaymoq</div></div>
+    <div class="cat-card" onclick="selectCat('Sides',this)"><div class="cat-icon">🍟</div><div class="cat-name">Sides</div></div>
   </div>
   <div class="sec-title" id="catTitle">Burgerlar</div>
   <div class="prod-grid" id="prodGrid"></div>
@@ -155,14 +128,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
 
 <div class="page" id="page-contact">
   <div class="sec-title">Biz bilan bogʻlaning</div>
-  <a class="clink" href="tel:+998901234567">
+  <a class="clink" href="tel:+998702230876">
     <div class="cico ph">📞</div>
-    <div class="clbl"><h3>Telefon</h3><p>+998 90 123 45 67</p></div>
-    <span class="carr">›</span>
-  </a>
-  <a class="clink" href="https://instagram.com/familyburger_uz" target="_blank">
-    <div class="cico ig">📸</div>
-    <div class="clbl"><h3>Instagram</h3><p>@familyburger_uz</p></div>
+    <div class="clbl"><h3>Telefon</h3><p>+998 70 223 08 76</p></div>
     <span class="carr">›</span>
   </a>
   <a class="clink" href="https://t.me/familyburger_uz" target="_blank">
@@ -205,7 +173,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-
       Buyurtma berish
     </div>
     <div class="fg"><label class="fl">Ismingiz</label><input class="fi" id="iName" type="text" placeholder="Toʻliq ismingiz"></div>
-    <div class="fg"><label class="fl">Telefon</label><input class="fi" id="iPhone" type="tel" placeholder="+998 90 000 00 00"></div>
+    <div class="fg"><label class="fl">Telefon</label><input class="fi" id="iPhone" type="tel" placeholder="+998 70 223 08 76"></div>
     <div class="fg"><label class="fl">Manzil</label><input class="fi" id="iAddr" type="text" placeholder="Koʻcha, uy raqami"></div>
     <button class="big-btn orange" style="margin-top:8px" onclick="submitOrder()">✅ Buyurtmani tasdiqlash</button>
   </div>
@@ -226,18 +194,35 @@ tg.ready();
 tg.expand();
 
 const DEFAULT_PRODUCTS = [
-  {id:1,name:"Classic Burger",price:25000,cat:"Burgerlar",em:"🍔",desc:"Mol goshti, yangi sabzavotlar va maxsus sous bilan"},
-  {id:2,name:"Cheese Burger",price:28000,cat:"Burgerlar",em:"🧀",desc:"Ikki qatlam pishloq, mol goshti, salat va pomidor"},
-  {id:3,name:"Chicken Burger",price:27000,cat:"Burgerlar",em:"🍗",desc:"Tandirda pishirilgan mazali tovuq goshti"},
-  {id:4,name:"Double Burger",price:35000,cat:"Burgerlar",em:"🍔",desc:"Ikki qatlam gosht, qoshimcha sous va sabzavotlar"},
-  {id:5,name:"Spicy Burger",price:30000,cat:"Burgerlar",em:"🌶️",desc:"Achchiq sous va jalapeno bilan"},
-  {id:6,name:"Coca-Cola",price:8000,cat:"Ichimliklar",em:"🥤",desc:"Sovuq Coca-Cola 0.5L"},
-  {id:7,name:"Milkshake",price:18000,cat:"Ichimliklar",em:"🧋",desc:"Sutli kokteyl — shokolad yoki vanil"},
-  {id:8,name:"Limonad",price:12000,cat:"Ichimliklar",em:"🍋",desc:"Toza limondan tayyorlangan serinlatuvchi ichimlik"},
-  {id:9,name:"Fanta",price:8000,cat:"Ichimliklar",em:"🍊",desc:"Sovuq Fanta apelsin 0.5L"},
-  {id:10,name:"Donut",price:10000,cat:"Shirinliklar",em:"🍩",desc:"Yangi pishirilgan shirinlik glazur bilan"},
-  {id:11,name:"Cheesecake",price:22000,cat:"Shirinliklar",em:"🍰",desc:"New York uslubida tayyorlangan cheesecake"},
-  {id:12,name:"Ice Cream",price:9000,cat:"Shirinliklar",em:"🍦",desc:"Tabiiy ingredientlardan qilingan muzqaymoq"}
+  // 🍔 BURGERLAR
+  {id:1, name:"Gamburg", price:14000, cat:"Burgerlar", em:"🍔", desc:"Double beef patty, cheddar cheese, lettuce, tomato & our secret sauce"},
+  {id:2, name:"Patira shashlik", price:40000, cat:"Burgerlar", em:"🍔", desc:"Grilled beef, smoky BBQ sauce, crispy bacon, caramelized onions"},
+  {id:3, name:"Patira Gamburg", price:25000, cat:"Burgerlar", em:"🍔", desc:"Plant-based patty, avocado spread, fresh veggies on brioche bun"},
+  {id:4, name:"Club Sendvichlari", price:34000, cat:"Burgerlar", em:"🥪", desc:"Jalapeño-seasoned beef, pepper jack cheese, hot sauce, cool slaw"},
+  {id:5, name:"Burger", price:25000, cat:"Burgerlar", em:"🍔", desc:"Breaded chicken fillet, honey mustard, pickles, shredded lettuce"},
+  {id:6, name:"Kartoshka fri", price:20000, cat:"Burgerlar", em:"🍟", desc:"Small beef patty, ketchup, mild cheddar, soft potato bun"},
+
+  // 🥤 ICHIMLIKLAR
+  {id:7, name:"Shishali cola", price:4000, cat:"Ichimliklar", em:"🥤", desc:"Ice-cold cola served in a frosted glass with a lemon twist"},
+  {id:8, name:"Arktea", price:20000, cat:"Ichimliklar", em:"🥤", desc:"Creamy chocolate, vanilla or strawberry milkshake topped with cream"},
+  {id:9, name:"Limonad", price:15000, cat:"Ichimliklar", em:"🍋", desc:"Freshly squeezed lemon, mint leaves, sugar & sparkling water"},
+  {id:10, name:"Lakte", price:14000, cat:"Ichimliklar", em:"🥛", desc:"100% fresh squeezed oranges, no added sugar"},
+  {id:11, name:"Fruit Punch", price:17000, cat:"Ichimliklar", em:"🥤", desc:"Tropical blend of mango, pineapple and passionfruit juices"},
+  {id:12, name:"Iced Coffee", price:18000, cat:"Ichimliklar", em:"☕", desc:"Cold brew coffee with milk foam and caramel drizzle"},
+
+  // 🍦 MUZQAYMOQ
+  {id:13, name:"Soft Serve Vanilla", price:15000, cat:"Muzqaymoq", em:"🍦", desc:"Creamy classic vanilla soft serve in a waffle cone or cup"},
+  {id:14, name:"Choco Dream", price:18000, cat:"Muzqaymoq", em:"🍫", desc:"Rich chocolate ice cream with hot fudge and whipped cream"},
+  {id:15, name:"Strawberry Swirl", price:18000, cat:"Muzqaymoq", em:"🍓", desc:"Fresh strawberry ice cream topped with berry compote & sprinkles"},
+  {id:16, name:"Rainbow Sundae", price:28000, cat:"Muzqaymoq", em:"🍦", desc:"Three scoops, rainbow sprinkles, cherry on top"},
+  {id:17, name:"Banana Split", price:30000, cat:"Muzqaymoq", em:"🍌", desc:"Banana, three scoops, chocolate & caramel sauce, whipped cream"},
+  {id:18, name:"Kids Sundae", price:15000, cat:"Muzqaymoq", em:"🍦", desc:"Small scoop with colorful sprinkles & a mini wafer"},
+
+  // 🍟 SIDES
+  {id:19, name:"Crispy Fries", price:15000, cat:"Sides", em:"🍟", desc:"Golden, crispy fries seasoned with sea salt & herbs"},
+  {id:20, name:"Onion Rings", price:18000, cat:"Sides", em:"🧅", desc:"Beer-battered onion rings fried to a perfect golden crunch"},
+  {id:21, name:"Garden Salad", price:22000, cat:"Sides", em:"🥗", desc:"Fresh mixed greens, cherry tomatoes, cucumber, ranch dressing"},
+  {id:22, name:"Corn on the Cob", price:16000, cat:"Sides", em:"🌽", desc:"Grilled sweet corn with butter and a sprinkle of paprika"}
 ];
 
 let PRODUCTS = JSON.parse(localStorage.getItem('fb_products') || 'null') || DEFAULT_PRODUCTS;
@@ -273,13 +258,12 @@ function renderProds(){
   document.getElementById('prodGrid').innerHTML = list.map(p => `
     <div class="prod-card" onclick="openDetail(${p.id})">
       <div class="prod-thumb">
-        ${p.img ? '<img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">' : ''}
         <span style="position:relative;z-index:1">${p.em}</span>
       </div>
       <div class="prod-body">
         <div class="prod-name">${p.name}</div>
         <div class="prod-row">
-          <span class="prod-price">${p.price.toLocaleString()} som</span>
+          <span class="prod-price">${p.price.toLocaleString()} so'm</span>
           <button class="plus-btn" onclick="event.stopPropagation();quickAdd(${p.id})">+</button>
         </div>
       </div>
@@ -289,7 +273,7 @@ function renderProds(){
 function openDetail(id){
   const p = PRODUCTS.find(x => x.id === id);
   curProd = p; curQty = 1;
-  document.getElementById('dHero').innerHTML = (p.img ? '<img src="'+p.img+'" onerror="this.style.display=\'none\'">' : '') + '<span style="position:relative;z-index:1">' + p.em + '</span>';
+  document.getElementById('dHero').innerHTML = `<span style="position:relative;z-index:1">${p.em}</span>`;
   document.getElementById('dName').textContent = p.name;
   document.getElementById('dDesc').textContent = p.desc;
   document.getElementById('dPrice').textContent = p.price.toLocaleString() + " so'm";
@@ -299,24 +283,25 @@ function openDetail(id){
 
 function closeScr(id){ document.getElementById(id).classList.remove('on'); }
 
-function dq(d){ curQty = Math.max(1, curQty + d); document.getElementById('dQty').textContent = curQty; }
+function dq(d){ 
+  curQty = Math.max(1, curQty + d); 
+  document.getElementById('dQty').textContent = curQty; 
+}
 
 function addFromDetail(){
   if(!curProd) return;
   const k = String(curProd.id);
   if(cart[k]) cart[k].qty += curQty;
-  else cart[k] = {name:curProd.name, price:curProd.price, em:curProd.em, img:curProd.img||null, qty:curQty};
+  else cart[k] = {name:curProd.name, price:curProd.price, em:curProd.em, qty:curQty};
   save(); updateBadge(); closeScr('scrDetail');
-  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
 }
 
 function quickAdd(id){
   const p = PRODUCTS.find(x => x.id === id);
   const k = String(id);
   if(cart[k]) cart[k].qty++;
-  else cart[k] = {name:p.name, price:p.price, em:p.em, img:p.img||null, qty:1};
+  else cart[k] = {name:p.name, price:p.price, em:p.em, qty:1};
   save(); updateBadge();
-  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
 }
 
 function updateBadge(){
@@ -332,17 +317,23 @@ function renderCart(){
   const keys = Object.keys(cart);
   const cb = document.getElementById('cartBody');
   if(!keys.length){
-    cb.innerHTML = '<div class="empty-box"><div class="empty-ico">🛒</div><div class="empty-txt">Savatchangiz bosh</div></div>';
+    cb.innerHTML = '<div class="empty-box"><div class="empty-ico">🛒</div><div class="empty-txt">Savatchangiz bo‘sh</div></div>';
     return;
   }
   const total = keys.reduce((s,k) => s + cart[k].price * cart[k].qty, 0);
   cb.innerHTML = '<div class="cart-items">' +
-    keys.map(k => '<div class="ci"><div class="ci-img">' +
-      (cart[k].img ? '<img src="'+cart[k].img+'" onerror="this.style.display=\'none\'">' : '') +
-      cart[k].em + '</div><div class="ci-info"><div class="ci-name">' + cart[k].name +
-      '</div><div class="ci-price">' + (cart[k].price * cart[k].qty).toLocaleString() + " so'm" +
-      '</div></div><div class="ci-qty"><button class="cq-btn" onclick="cqty(\''+k+'\',-1)">−</button><span class="cq-n">' +
-      cart[k].qty + '</span><button class="cq-btn" onclick="cqty(\''+k+'\',1)">+</button></div></div>').join('') +
+    keys.map(k => `<div class="ci">
+      <div class="ci-img">${cart[k].em}</div>
+      <div class="ci-info">
+        <div class="ci-name">${cart[k].name}</div>
+        <div class="ci-price">${(cart[k].price * cart[k].qty).toLocaleString()} so'm</div>
+      </div>
+      <div class="ci-qty">
+        <button class="cq-btn" onclick="cqty('${k}',-1)">−</button>
+        <span class="cq-n">${cart[k].qty}</span>
+        <button class="cq-btn" onclick="cqty('${k}',1)">+</button>
+      </div>
+    </div>`).join('') +
     '</div><div class="total-row"><span class="total-lbl">Jami:</span><span class="total-val">' +
     total.toLocaleString() + " so'm</span></div>" +
     '<button class="big-btn" onclick="openCheckout()">Buyurtma berish →</button>';
@@ -360,23 +351,18 @@ async function submitOrder(){
   const name = document.getElementById('iName').value.trim();
   const phone = document.getElementById('iPhone').value.trim();
   const addr = document.getElementById('iAddr').value.trim();
-  if(!name || !phone || !addr){ alert("Iltimos, barcha maydonlarni toldiring!"); return; }
+  if(!name || !phone || !addr){ alert("Iltimos, barcha maydonlarni to‘ldiring!"); return; }
 
   const total = Object.values(cart).reduce((s,i) => s + i.price * i.qty, 0);
-  const itemsText = Object.values(cart).map(i => "  • " + i.em + " " + i.name + " x" + i.qty + " = " + (i.price*i.qty).toLocaleString() + " som").join("\n");
+  const itemsText = Object.values(cart).map(i => `• ${i.em} ${i.name} x${i.qty} = ${(i.price*i.qty).toLocaleString()} so'm`).join("\n");
 
   const BOT_TOKEN = "8796024744:AAHgqewn8vc4JieUw9Zl9Bx7BdSWmA6ZM5Q";
   const ADMIN_ID = "8321214528";
 
-  const msg = "🔔 YANGI BUYURTMA!\n\n" +
-    "👤 Ism: " + name + "\n" +
-    "📞 Tel: " + phone + "\n" +
-    "🏠 Manzil: " + addr + "\n\n" +
-    "🛒 Mahsulotlar:\n" + itemsText + "\n\n" +
-    "💰 Jami: " + total.toLocaleString() + " som";
+  const msg = `🛒 YANGI BUYURTMA!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n🏠 Manzil: ${addr}\n\n📋 Mahsulotlar:\n${itemsText}\n\n💰 Jami: ${total.toLocaleString()} so'm`;
 
   try{
-    await fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage", {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({chat_id: ADMIN_ID, text: msg})
@@ -398,26 +384,19 @@ function goHome(){
 function renderOrders(){
   const el = document.getElementById('ordersList');
   if(!orders.length){
-    el.innerHTML = '<div class="empty-box"><div class="empty-ico">📦</div><div class="empty-txt">Hali buyurtma yoq</div></div>';
+    el.innerHTML = '<div class="empty-box"><div class="empty-ico">📦</div><div class="empty-txt">Hali buyurtma yo‘q</div></div>';
     return;
   }
-  el.innerHTML = orders.map(o =>
-    '<div class="order-card"><div class="oh"><div><div class="oid">Buyurtma #' + String(o.id).slice(-4) +
-    '</div><div class="odate">' + o.date + '</div></div><div class="ostatus">' + o.status + '</div></div>' +
-    Object.values(o.items).map(i => '<div class="oitem">' + i.em + ' ' + i.name + ' x' + i.qty + '</div>').join('') +
-    '<div class="ototal">Jami: ' + o.total.toLocaleString() + " so'm</div></div>").join('');
+  el.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="oh">
+        <div><div class="oid">Buyurtma #${String(o.id).slice(-4)}</div><div class="odate">${o.date}</div></div>
+        <div class="ostatus">${o.status}</div>
+      </div>
+      ${Object.values(o.items).map(i => `<div class="oitem">${i.em} ${i.name} x${i.qty}</div>`).join('')}
+      <div class="ototal">Jami: ${o.total.toLocaleString()} so'm</div>
+    </div>`).join('');
 }
-
-tg.onEvent('web_app_data', function(data){
-  try {
-    const d = JSON.parse(data);
-    if(d.action === 'sync_products'){
-      PRODUCTS = d.products;
-      localStorage.setItem('fb_products', JSON.stringify(PRODUCTS));
-      renderProds();
-    }
-  } catch(e){}
-});
 
 renderProds();
 updateBadge();
