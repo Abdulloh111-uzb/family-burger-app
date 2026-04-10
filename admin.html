@@ -3,121 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Family Burger — Admin</title>
+<title>Family Burger Admin</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--green:#2A4D12;--green2:#1e3a0d;--gold:#F5A623;--orange:#FF6B00;--red:#e03030;--bg:#111410;--bg2:#181c13;--card:#1e2419;--card2:#242b1c;--border:rgba(255,255,255,0.07);--text:#f0f0e8;--muted:#7a8070;--r:14px}
+:root{
+  --green:#2A4D12;--green2:#1a3009;--gold:#F5A623;--orange:#FF6B00;
+  --red:#e03030;--bg:#0f1410;--card:#1a2015;--card2:#222b1a;
+  --border:rgba(255,255,255,0.08);--text:#f0f0e8;--muted:#6a7060;--r:13px
+}
 html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.header{background:var(--green2);padding:16px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.header h1{font-size:16px;font-weight:700;color:#fff;flex:1}
-.header p{font-size:11px;color:rgba(255,255,255,.5)}
-.logo{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);background:var(--green);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.content{padding:16px 16px 100px}
-.sec-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
 
-/* ADD BUTTON */
-.add-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:15px;font-weight:700;padding:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px}
-.add-btn:active{opacity:.85}
+/* HEADER */
+.hdr{background:var(--green2);padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.hdr-ico{width:36px;height:36px;border-radius:50%;border:2px solid var(--gold);background:var(--green);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.hdr h1{font-size:15px;font-weight:700;color:#fff}
+.hdr p{font-size:11px;color:rgba(255,255,255,.45);margin-top:1px}
 
-/* PRODUCT LIST */
-.prod-list{display:flex;flex-direction:column;gap:10px}
-.prod-item{background:var(--card);border-radius:var(--r);padding:12px;display:flex;gap:12px;align-items:center;border:1px solid var(--border)}
-.prod-thumb{width:56px;height:56px;border-radius:10px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden}
-.prod-thumb img{width:100%;height:100%;object-fit:cover}
-.prod-info{flex:1;min-width:0}
-.prod-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prod-sub{font-size:12px;color:var(--muted);margin-top:3px}
-.prod-price{font-size:13px;font-weight:700;color:var(--gold);margin-top:2px}
-.prod-actions{display:flex;gap:6px;flex-shrink:0}
-.act-btn{background:var(--card2);border:none;border-radius:9px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
-.act-btn.del{background:rgba(224,48,48,.15)}
-.act-btn:active{opacity:.7}
+/* CONTENT */
+.wrap{padding:14px 14px 100px}
 
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:flex-end;justify-content:center}
-.modal-bg.on{display:flex}
-.modal{background:var(--bg2);border-radius:20px 20px 0 0;padding:20px 18px 40px;width:100%;max-height:90vh;overflow-y:auto;animation:slideup .25s ease}
-@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-title{font-size:17px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
-.modal-close{background:var(--card);border:none;border-radius:50%;width:32px;height:32px;color:var(--muted);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.fg{margin-bottom:14px}
-.fl{font-size:11px;color:var(--muted);margin-bottom:7px;display:block;letter-spacing:.4px;text-transform:uppercase}
-.fi{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:12px 14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.fi:focus{border-color:var(--gold)}
-select.fi option{background:var(--card);color:var(--text)}
-.img-preview{width:100%;aspect-ratio:16/9;background:var(--card);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:48px;margin-bottom:14px;overflow:hidden;border:1.5px solid var(--border)}
-.img-preview img{width:100%;height:100%;object-fit:cover}
-.save-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:15px;font-weight:700;padding:14px;cursor:pointer;margin-top:6px}
-.save-btn:active{opacity:.85}
-.del-btn{width:100%;background:rgba(224,48,48,.15);border:1px solid rgba(224,48,48,.3);border-radius:var(--r);color:var(--red);font-size:15px;font-weight:600;padding:13px;cursor:pointer;margin-top:10px}
+/* ADD BTN */
+.add-fab{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:15px;font-weight:700;padding:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;letter-spacing:.2px}
+.add-fab:active{opacity:.85}
 
-/* EMPTY */
+/* STATS */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px}
+.stat{background:var(--card);border-radius:10px;padding:10px;text-align:center;border:1px solid var(--border)}
+.stat-n{font-size:20px;font-weight:700;color:var(--gold)}
+.stat-l{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* CAT FILTER */
+.cats{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar{display:none}
+.cat-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:12px;font-weight:500;padding:6px 14px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.cat-pill.on{background:var(--green);border-color:var(--gold);color:var(--gold)}
+
+/* PROD LIST */
+.prod-list{display:flex;flex-direction:column;gap:8px}
+.prod-item{background:var(--card);border-radius:var(--r);padding:11px;display:flex;gap:11px;align-items:center;border:1px solid var(--border);cursor:pointer;transition:background .15s}
+.prod-item:active{background:var(--card2)}
+.pthumb{width:58px;height:58px;border-radius:10px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden;position:relative}
+.pthumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pthumb span{position:relative;z-index:1}
+.pinfo{flex:1;min-width:0}
+.pname{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.psub{font-size:11px;color:var(--muted);margin-top:2px}
+.pprice{font-size:13px;font-weight:700;color:var(--gold);margin-top:3px}
+.pact{display:flex;gap:6px;flex-shrink:0}
+.pact-btn{background:var(--card2);border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px}
+.pact-btn.red{background:rgba(224,48,48,.12)}
+.pact-btn:active{opacity:.6}
+
+/* EMPTY / LOADING */
 .empty{text-align:center;padding:50px 20px}
-.empty-ico{font-size:50px;margin-bottom:12px}
+.empty-ico{font-size:48px;margin-bottom:12px}
 .empty-txt{font-size:14px;color:var(--muted)}
-
-/* LOADING */
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 
+/* DRAWER */
+.drawer-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200}
+.drawer-bg.on{display:block}
+.drawer{position:fixed;bottom:0;left:0;right:0;background:#161d12;border-radius:20px 20px 0 0;padding:0 0 40px;z-index:201;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,1.2,.5,1)}
+.drawer.on{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:12px auto 16px}
+.drawer-head{padding:0 16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.drawer-title{font-size:16px;font-weight:700}
+.drawer-close{background:var(--card);border:none;border-radius:50%;width:30px;height:30px;color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.drawer-body{padding:16px}
+
+/* FORM */
+.img-box{width:100%;aspect-ratio:16/9;background:var(--card);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:14px;overflow:hidden;border:1.5px solid var(--border);position:relative}
+.img-box img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.img-box span{position:relative;z-index:1}
+.fg{margin-bottom:13px}
+.fl{font-size:11px;color:var(--muted);margin-bottom:6px;display:block;letter-spacing:.4px;text-transform:uppercase}
+.fi{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:12px 13px;outline:none;-webkit-appearance:none;transition:border-color .2s}
+.fi:focus{border-color:var(--gold)}
+select.fi{background-image:none}
+.fi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.save-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:15px;font-weight:700;padding:13px;cursor:pointer;margin-top:4px}
+.save-btn:active{opacity:.85}
+.del-btn{width:100%;background:rgba(224,48,48,.1);border:1.5px solid rgba(224,48,48,.25);border-radius:var(--r);color:#e05050;font-size:14px;font-weight:600;padding:12px;cursor:pointer;margin-top:10px}
+.del-btn:active{opacity:.7}
+
 /* TOAST */
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:20px;z-index:999;display:none;white-space:nowrap}
-.toast.on{display:block;animation:fadein .2s ease}
-@keyframes fadein{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(0);background:#2A4D12;border:1px solid var(--gold);color:var(--gold);font-size:13px;font-weight:600;padding:9px 20px;border-radius:20px;z-index:999;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="logo">👨‍💼</div>
+<div class="hdr">
+  <div class="hdr-ico">👨‍💼</div>
   <div>
     <h1>Admin Panel</h1>
-    <p>Family Burger</p>
+    <p>Family Burger — mahsulotlarni boshqarish</p>
   </div>
 </div>
 
-<div class="content">
-  <button class="add-btn" onclick="openAdd()">＋ Yangi mahsulot qo'shish</button>
-  <div class="sec-title">Mahsulotlar</div>
+<div class="wrap">
+  <button class="add-fab" onclick="openAdd()">＋ Yangi mahsulot qo'shish</button>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="sBurger">—</div><div class="stat-l">🍔 Burger</div></div>
+    <div class="stat"><div class="stat-n" id="sDrink">—</div><div class="stat-l">🥤 Ichimlik</div></div>
+    <div class="stat"><div class="stat-n" id="sSweet">—</div><div class="stat-l">🍰 Shirinlik</div></div>
+  </div>
+
+  <div class="cats">
+    <div class="cat-pill on" onclick="filterCat('all',this)">Hammasi</div>
+    <div class="cat-pill" onclick="filterCat('Burgerlar',this)">🍔 Burgerlar</div>
+    <div class="cat-pill" onclick="filterCat('Ichimliklar',this)">🥤 Ichimliklar</div>
+    <div class="cat-pill" onclick="filterCat('Shirinliklar',this)">🍰 Shirinliklar</div>
+  </div>
+
   <div class="prod-list" id="prodList"><div class="loading">⏳ Yuklanmoqda...</div></div>
 </div>
 
-<!-- ADD/EDIT MODAL -->
-<div class="modal-bg" id="modalBg" onclick="handleBgClick(event)">
-  <div class="modal" id="modal">
-    <div class="modal-title">
-      <span id="modalTitle">Mahsulot qo'shish</span>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+<!-- DRAWER -->
+<div class="drawer-bg" id="drawerBg" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-head">
+    <span class="drawer-title" id="drawerTitle">Mahsulot qo'shish</span>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
 
-    <div class="img-preview" id="imgPreview"><span id="imgEmoji">🍔</span></div>
+    <div class="img-box" id="imgBox"><span id="imgEm">🍔</span></div>
 
     <div class="fg">
-      <label class="fl">Rasm URL (ixtiyoriy)</label>
-      <input class="fi" id="fImg" type="url" placeholder="https://..." oninput="previewImg(this.value)">
+      <label class="fl">Rasm URL</label>
+      <input class="fi" id="fImg" type="url" placeholder="https://example.com/burger.jpg" oninput="previewImg(this.value)">
     </div>
+
     <div class="fg">
       <label class="fl">Mahsulot nomi</label>
       <input class="fi" id="fName" type="text" placeholder="Masalan: Classic Burger">
     </div>
-    <div class="fg">
-      <label class="fl">Narxi (so'mda)</label>
-      <input class="fi" id="fPrice" type="number" placeholder="25000">
+
+    <div class="fi-row">
+      <div class="fg">
+        <label class="fl">Narxi (so'm)</label>
+        <input class="fi" id="fPrice" type="number" placeholder="25000" inputmode="numeric">
+      </div>
+      <div class="fg">
+        <label class="fl">Kategoriya</label>
+        <select class="fi" id="fCat" onchange="catChanged()">
+          <option value="Burgerlar">🍔 Burgerlar</option>
+          <option value="Ichimliklar">🥤 Ichimliklar</option>
+          <option value="Shirinliklar">🍰 Shirinliklar</option>
+        </select>
+      </div>
     </div>
-    <div class="fg">
-      <label class="fl">Kategoriya</label>
-      <select class="fi" id="fCat" onchange="updateEmoji()">
-        <option value="Burgerlar">🍔 Burgerlar</option>
-        <option value="Ichimliklar">🥤 Ichimliklar</option>
-        <option value="Shirinliklar">🍰 Shirinliklar</option>
-      </select>
-    </div>
+
     <div class="fg">
       <label class="fl">Tavsif</label>
       <input class="fi" id="fDesc" type="text" placeholder="Qisqa tavsif...">
     </div>
 
-    <button class="save-btn" onclick="saveProduct()">✅ Saqlash</button>
+    <button class="save-btn" id="saveBtn" onclick="saveProduct()">✅ Saqlash</button>
     <button class="del-btn" id="delBtn" style="display:none" onclick="deleteProduct()">🗑 Mahsulotni o'chirish</button>
   </div>
 </div>
@@ -129,170 +175,166 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-const JSONBIN_ID  = "69d77d55aaba882197dd1746";
-const JSONBIN_KEY = "$2a$10$nRkSTdJDfYyxIy84qlZOEufkHuxqWdmACat3IUXajUiHIFf8Uo1Eu";
-const JSONBIN_URL = "https://api.jsonbin.io/v3/b/" + JSONBIN_ID;
-const EMOJIS = {"Burgerlar":"🍔","Ichimliklar":"🥤","Shirinliklar":"🍰"};
+const JB_ID  = "69d77d55aaba882197dd1746";
+const JB_KEY = "$2a$10$nRkSTdJDfYyxIy84qlZOEufkHuxqWdmACat3IUXajUiHIFf8Uo1Eu";
+const JB_URL = "https://api.jsonbin.io/v3/b/" + JB_ID;
+const EM = {Burgerlar:"🍔", Ichimliklar:"🥤", Shirinliklar:"🍰"};
 
 let products = [];
 let editId = null;
+let curFilter = "all";
 
-async function loadProducts(){
+async function load(){
   try{
-    const r = await fetch(JSONBIN_URL + "/latest", {headers:{"X-Master-Key":JSONBIN_KEY,"X-Bin-Meta":"false"}});
-    const data = await r.json();
-    products = data.products || [];
-    renderList();
+    const r = await fetch(JB_URL+"/latest",{headers:{"X-Master-Key":JB_KEY,"X-Bin-Meta":"false"}});
+    const d = await r.json();
+    products = d.products||[];
+    render(); updateStats();
   }catch(e){
-    document.getElementById('prodList').innerHTML = '<div class="loading">❌ Yuklab bolmadi</div>';
+    document.getElementById('prodList').innerHTML='<div class="loading">❌ Internet xatosi. Qayta urinib koʻring.</div>';
   }
 }
 
-async function saveToCloud(){
-  await fetch(JSONBIN_URL, {
-    method:"PUT",
-    headers:{"X-Master-Key":JSONBIN_KEY,"Content-Type":"application/json"},
-    body: JSON.stringify({products})
-  });
+async function pushCloud(){
+  await fetch(JB_URL,{method:"PUT",headers:{"X-Master-Key":JB_KEY,"Content-Type":"application/json"},body:JSON.stringify({products})});
 }
 
-function renderList(){
+function updateStats(){
+  document.getElementById('sBurger').textContent = products.filter(p=>p.cat==="Burgerlar").length;
+  document.getElementById('sDrink').textContent  = products.filter(p=>p.cat==="Ichimliklar").length;
+  document.getElementById('sSweet').textContent  = products.filter(p=>p.cat==="Shirinliklar").length;
+}
+
+function filterCat(cat, el){
+  curFilter = cat;
+  document.querySelectorAll('.cat-pill').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  render();
+}
+
+function render(){
+  const list = curFilter==="all" ? products : products.filter(p=>p.cat===curFilter);
   const el = document.getElementById('prodList');
-  if(!products.length){
-    el.innerHTML = '<div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Hali mahsulot yoq</div></div>';
+  if(!list.length){
+    el.innerHTML='<div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">Mahsulot yoq</div></div>';
     return;
   }
-  el.innerHTML = products.map(p => `
-    <div class="prod-item">
-      <div class="prod-thumb">
-        ${p.img ? `<img src="${p.img}" onerror="this.style.display='none'">` : ''}
-        <span style="${p.img?'display:none':''}">${p.em||'🍽'}</span>
+  el.innerHTML = list.map(p=>`
+    <div class="prod-item" onclick="openEdit(${p.id})">
+      <div class="pthumb">
+        ${p.img?`<img src="${p.img}" onerror="this.style.display='none'">`:''}
+        <span>${p.em||EM[p.cat]||'🍽'}</span>
       </div>
-      <div class="prod-info">
-        <div class="prod-name">${p.name}</div>
-        <div class="prod-sub">${p.cat}</div>
-        <div class="prod-price">${p.price.toLocaleString()} som</div>
+      <div class="pinfo">
+        <div class="pname">${p.name}</div>
+        <div class="psub">${p.cat}${p.desc?' · '+p.desc.slice(0,30):''}${p.desc&&p.desc.length>30?'...':''}</div>
+        <div class="pprice">${p.price.toLocaleString()} soʻm</div>
       </div>
-      <div class="prod-actions">
-        <button class="act-btn" onclick="openEdit(${p.id})">✏️</button>
-        <button class="act-btn del" onclick="confirmDelete(${p.id})">🗑</button>
+      <div class="pact">
+        <button class="pact-btn" onclick="event.stopPropagation();openEdit(${p.id})">✏️</button>
+        <button class="pact-btn red" onclick="event.stopPropagation();confirmDel(${p.id})">🗑</button>
       </div>
     </div>`).join('');
 }
 
 function openAdd(){
-  editId = null;
-  document.getElementById('modalTitle').textContent = "Mahsulot qo'shish";
-  document.getElementById('fImg').value = '';
-  document.getElementById('fName').value = '';
-  document.getElementById('fPrice').value = '';
-  document.getElementById('fCat').value = 'Burgerlar';
-  document.getElementById('fDesc').value = '';
-  document.getElementById('delBtn').style.display = 'none';
-  document.getElementById('imgEmoji').textContent = '🍔';
-  document.getElementById('imgPreview').innerHTML = '<span id="imgEmoji">🍔</span>';
-  document.getElementById('modalBg').classList.add('on');
+  editId=null;
+  document.getElementById('drawerTitle').textContent="Mahsulot qoʻshish";
+  document.getElementById('fImg').value='';
+  document.getElementById('fName').value='';
+  document.getElementById('fPrice').value='';
+  document.getElementById('fCat').value='Burgerlar';
+  document.getElementById('fDesc').value='';
+  document.getElementById('delBtn').style.display='none';
+  document.getElementById('imgBox').innerHTML='<span id="imgEm">🍔</span>';
+  showDrawer();
 }
 
 function openEdit(id){
-  const p = products.find(x => x.id === id);
+  const p=products.find(x=>x.id===id);
   if(!p) return;
-  editId = id;
-  document.getElementById('modalTitle').textContent = "Mahsulotni tahrirlash";
-  document.getElementById('fImg').value = p.img || '';
-  document.getElementById('fName').value = p.name;
-  document.getElementById('fPrice').value = p.price;
-  document.getElementById('fCat').value = p.cat;
-  document.getElementById('fDesc').value = p.desc || '';
-  document.getElementById('delBtn').style.display = 'block';
-  const prev = document.getElementById('imgPreview');
-  if(p.img){
-    prev.innerHTML = `<img src="${p.img}" onerror="this.innerHTML='${p.em||'🍽'}'">`;
-  } else {
-    prev.innerHTML = `<span id="imgEmoji">${p.em||EMOJIS[p.cat]||'🍽'}</span>`;
-  }
-  document.getElementById('modalBg').classList.add('on');
+  editId=id;
+  document.getElementById('drawerTitle').textContent="Mahsulotni tahrirlash";
+  document.getElementById('fImg').value=p.img||'';
+  document.getElementById('fName').value=p.name;
+  document.getElementById('fPrice').value=p.price;
+  document.getElementById('fCat').value=p.cat;
+  document.getElementById('fDesc').value=p.desc||'';
+  document.getElementById('delBtn').style.display='block';
+  const box=document.getElementById('imgBox');
+  box.innerHTML=p.img?`<img src="${p.img}" onerror="this.style.display='none'"><span>${p.em||EM[p.cat]}</span>`:`<span>${p.em||EM[p.cat]}</span>`;
+  showDrawer();
 }
 
-function closeModal(){
-  document.getElementById('modalBg').classList.remove('on');
+function showDrawer(){
+  document.getElementById('drawerBg').classList.add('on');
+  setTimeout(()=>document.getElementById('drawer').classList.add('on'),10);
 }
 
-function handleBgClick(e){
-  if(e.target === document.getElementById('modalBg')) closeModal();
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('on');
+  setTimeout(()=>document.getElementById('drawerBg').classList.remove('on'),280);
 }
 
 function previewImg(url){
-  const prev = document.getElementById('imgPreview');
-  const cat = document.getElementById('fCat').value;
+  const cat=document.getElementById('fCat').value;
+  const box=document.getElementById('imgBox');
   if(url){
-    prev.innerHTML = `<img src="${url}" onerror="this.parentElement.innerHTML='<span>${EMOJIS[cat]||'🍽'}</span>'">`;
+    box.innerHTML=`<img src="${url}" onerror="this.style.display='none'"><span>${EM[cat]}</span>`;
   } else {
-    prev.innerHTML = `<span>${EMOJIS[cat]||'🍔'}</span>`;
+    box.innerHTML=`<span>${EM[cat]}</span>`;
   }
 }
 
-function updateEmoji(){
-  const cat = document.getElementById('fCat').value;
-  const url = document.getElementById('fImg').value;
-  if(!url){
-    document.getElementById('imgPreview').innerHTML = `<span>${EMOJIS[cat]||'🍔'}</span>`;
-  }
+function catChanged(){
+  const url=document.getElementById('fImg').value;
+  if(!url) previewImg('');
 }
 
 async function saveProduct(){
-  const name = document.getElementById('fName').value.trim();
-  const price = parseFloat(document.getElementById('fPrice').value);
-  const cat = document.getElementById('fCat').value;
-  const desc = document.getElementById('fDesc').value.trim();
-  const img = document.getElementById('fImg').value.trim() || null;
-
-  if(!name){ alert("Nomni kiriting!"); return; }
-  if(!price || isNaN(price)){ alert("Narxni kiriting!"); return; }
-
+  const name=document.getElementById('fName').value.trim();
+  const price=parseFloat(document.getElementById('fPrice').value);
+  const cat=document.getElementById('fCat').value;
+  const desc=document.getElementById('fDesc').value.trim();
+  const img=document.getElementById('fImg').value.trim()||null;
+  if(!name){alert("Nomni kiriting!");return;}
+  if(!price||isNaN(price)){alert("Narxni kiriting!");return;}
+  const btn=document.getElementById('saveBtn');
+  btn.textContent="⏳ Saqlanmoqda...";btn.disabled=true;
   if(editId){
-    const idx = products.findIndex(x => x.id === editId);
-    if(idx !== -1){
-      products[idx] = {...products[idx], name, price, cat, desc, img, em: EMOJIS[cat]||'🍽'};
-    }
+    const i=products.findIndex(x=>x.id===editId);
+    if(i!==-1) products[i]={...products[i],name,price,cat,desc,img,em:EM[cat]};
   } else {
-    const newId = Math.max(...products.map(p => p.id), 0) + 1;
-    products.push({id:newId, name, price, cat, desc, img, em: EMOJIS[cat]||'🍽'});
+    const nid=Math.max(...products.map(p=>p.id),0)+1;
+    products.push({id:nid,name,price,cat,desc,img,em:EM[cat]});
   }
-
-  await saveToCloud();
-  renderList();
-  closeModal();
-  showToast(editId ? "✅ Yangilandi!" : "✅ Qo'shildi!");
-  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('medium');
+  await pushCloud();
+  render(); updateStats(); closeDrawer();
+  toast(editId?"✅ Yangilandi!":"✅ Qoʻshildi!");
+  btn.textContent="✅ Saqlash";btn.disabled=false;
+  tg.HapticFeedback&&tg.HapticFeedback.impactOccurred('medium');
 }
 
-async function confirmDelete(id){
-  const p = products.find(x => x.id === id);
-  if(!p) return;
-  if(confirm(`"${p.name}" ni o'chirishni tasdiqlaysizmi?`)){
-    products = products.filter(x => x.id !== id);
-    await saveToCloud();
-    renderList();
-    showToast("🗑 O'chirildi!");
-  }
+async function confirmDel(id){
+  const p=products.find(x=>x.id===id);
+  if(!p||!confirm(`"${p.name}" ni oʻchirasizmi?`)) return;
+  products=products.filter(x=>x.id!==id);
+  await pushCloud();
+  render(); updateStats(); toast("🗑 Oʻchirildi!");
+  tg.HapticFeedback&&tg.HapticFeedback.impactOccurred('medium');
 }
 
 async function deleteProduct(){
-  if(editId){
-    await confirmDelete(editId);
-    closeModal();
-  }
+  if(editId){ await confirmDel(editId); closeDrawer(); }
 }
 
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('on');
-  setTimeout(() => t.classList.remove('on'), 2500);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2500);
 }
 
-loadProducts();
+load();
 </script>
 </body>
 </html>
