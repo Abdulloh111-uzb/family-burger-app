@@ -5,218 +5,375 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Family Burger</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--green:#2A4D12;--green2:#1e3a0d;--gold:#F5A623;--orange:#FF6B00;--bg:#111410;--bg2:#181c13;--card:#1e2419;--card2:#242b1c;--border:rgba(255,255,255,0.07);--text:#f0f0e8;--muted:#7a8070;--r:14px}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
-.close-btn{position:fixed;top:12px;right:14px;z-index:9999;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.header{background:var(--green2);padding:52px 18px 0;position:sticky;top:0;z-index:100}
+:root{
+  --green:#1e3d0a;
+  --green2:#2d5c12;
+  --green3:#3a7518;
+  --gold:#F5A623;
+  --gold2:#e09510;
+  --orange:#FF6B00;
+  --pink:#FF3CAC;
+  --bg:#0e1a06;
+  --card:#162010;
+  --card2:#1e2d14;
+  --border:rgba(255,255,255,0.07);
+  --text:#f0f0e8;
+  --muted:#7a8a6a;
+  --r:14px;
+  --rr:20px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden}
+
+/* CLOSE */
+.x-btn{position:fixed;top:14px;right:14px;z-index:9999;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* HEADER */
+.header{background:var(--green);padding:52px 16px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.4)}
 .hrow{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.logo{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;flex-shrink:0;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px}
+
+/* LOGO CIRCLE */
+.logo-wrap{width:48px;height:48px;border-radius:50%;padding:2px;flex-shrink:0;background:conic-gradient(from 0deg,#FF3CAC,#FF6B00,#F5A623,#FF6B00,#FF3CAC)}
+.logo-inner{width:100%;height:100%;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px}
+
 .htitle{flex:1}
-.htitle h1{font-size:17px;font-weight:700;color:#fff;letter-spacing:.3px}
-.htitle p{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+.htitle h1{font-family:'Bangers',cursive;font-size:20px;color:#fff;letter-spacing:1.5px}
+.htitle p{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px}
+
 .cart-fab{position:relative;background:var(--gold);border:none;border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:20px}
-.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
+.cbadge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
+
+/* TABS */
 .tabs{display:flex;border-bottom:1px solid var(--border)}
-.tab{flex:1;background:transparent;border:none;color:var(--muted);font-size:12px;font-weight:500;padding:10px 4px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;border-bottom:2px solid transparent;transition:all .2s}
-.tab-ico{font-size:18px}
+.tab{flex:1;background:transparent;border:none;color:var(--muted);font-size:11px;font-weight:800;padding:9px 4px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;transition:all .2s;font-family:'Nunito',sans-serif;letter-spacing:.3px;text-transform:uppercase}
+.tab-ico{font-size:17px}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
-.page{display:none;padding:20px 16px 100px;animation:up .2s ease}
+
+/* PAGES */
+.page{display:none;padding:18px 14px 100px;animation:up .2s ease}
 .page.on{display:block}
 @keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px}
-.cat-card{background:var(--card);border-radius:var(--r);padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;border:1.5px solid transparent;transition:all .2s}
+
+/* HERO BANNER */
+.hero-banner{background:linear-gradient(135deg,var(--green2),var(--green));border-radius:var(--rr);padding:20px;margin-bottom:18px;position:relative;overflow:hidden;border:1px solid rgba(245,166,35,.2)}
+.hero-banner::before{content:'🍔';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:90px;opacity:.15}
+.hero-tag{display:inline-block;background:rgba(245,166,35,.2);color:var(--gold);font-size:11px;font-weight:800;padding:4px 12px;border-radius:12px;margin-bottom:8px;letter-spacing:.3px}
+.hero-title{font-family:'Bangers',cursive;font-size:32px;color:#fff;letter-spacing:1.5px;line-height:1;margin-bottom:6px}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:14px}
+.hero-btn{display:inline-block;background:var(--gold);color:#111;font-weight:800;font-size:13px;padding:9px 20px;border-radius:20px;text-decoration:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif}
+.hero-stats{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1)}
+.hstat{text-align:center}
+.hstat-n{font-family:'Bangers',cursive;font-size:22px;color:var(--gold);letter-spacing:1px}
+.hstat-l{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+
+/* MARQUEE */
+.marquee{overflow:hidden;margin-bottom:18px;background:var(--green2);border-radius:10px;padding:8px 0}
+.marquee-track{display:flex;gap:32px;animation:mq 18s linear infinite;width:max-content}
+.marquee-track span{font-size:12px;font-weight:800;white-space:nowrap;color:rgba(255,255,255,.6)}
+.marquee-track span:nth-child(odd){color:var(--gold)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* CAT GRID */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px}
+.cat-card{background:var(--card);border-radius:var(--r);padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;border:1.5px solid transparent;transition:all .2s}
 .cat-card:active{transform:scale(.97)}
 .cat-card.on{border-color:var(--gold);background:var(--card2)}
-.cat-icon{width:52px;height:52px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:26px}
-.cat-card.on .cat-icon{background:rgba(245,166,35,.18)}
-.cat-name{font-size:12px;font-weight:600;color:var(--text);text-align:center}
-.sec-title{font-size:15px;font-weight:700;color:var(--text);margin:18px 0 12px}
-.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.prod-card{background:var(--card);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:transform .15s}
-.prod-card:active{transform:scale(.97)}
-.prod-thumb{width:100%;aspect-ratio:1;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden}
-.prod-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.prod-body{padding:10px}
-.prod-name{font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.3;color:var(--text)}
-.prod-row{display:flex;align-items:center;justify-content:space-between}
-.prod-price{font-size:13px;font-weight:700;color:var(--gold)}
-.plus-btn{background:var(--green);border:none;border-radius:8px;width:28px;height:28px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1}
-.screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;animation:slideup .25s ease}
+.cat-ico{width:50px;height:50px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:24px}
+.cat-card.on .cat-ico{background:rgba(245,166,35,.18)}
+.cat-name{font-size:11px;font-weight:800;color:var(--text);text-align:center;letter-spacing:.2px}
+
+/* SECTION TITLE */
+.sec{font-family:'Bangers',cursive;font-size:18px;color:var(--text);margin:16px 0 12px;letter-spacing:.8px}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.pcard{background:var(--card);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:transform .15s}
+.pcard:active{transform:scale(.97)}
+.pthumb{width:100%;aspect-ratio:1;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:54px;position:relative;overflow:hidden}
+.pthumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.pthumb span{position:relative;z-index:1}
+.pbody{padding:10px}
+.pname{font-size:13px;font-weight:800;margin-bottom:5px;line-height:1.3;color:var(--text)}
+.prow{display:flex;align-items:center;justify-content:space-between}
+.pprice{font-family:'Bangers',cursive;font-size:16px;color:var(--gold);letter-spacing:.5px}
+.plus{background:var(--green2);border:none;border-radius:8px;width:28px;height:28px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.plus:active{background:var(--gold);color:#111}
+
+/* SPECIALS */
+.special-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.scard{border-radius:var(--rr);padding:20px;position:relative;overflow:hidden}
+.scard.red{background:linear-gradient(135deg,#5c1010,#8c1c1c)}
+.scard.yellow{background:linear-gradient(135deg,#5a3f00,#8c6200)}
+.scard.dark{background:linear-gradient(135deg,var(--green),var(--green2));border:1px solid rgba(245,166,35,.2)}
+.scard::after{position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:70px;opacity:.15}
+.scard.red::after{content:'👨‍👩‍👧‍👦'}
+.scard.yellow::after{content:'🎉'}
+.scard.dark::after{content:'🍔'}
+.semoji{font-size:36px;margin-bottom:10px;display:block}
+.stitle{font-family:'Bangers',cursive;font-size:24px;color:#fff;letter-spacing:1px;margin-bottom:6px}
+.sdesc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:10px}
+.sprice{font-family:'Bangers',cursive;font-size:22px;color:var(--gold);letter-spacing:.5px}
+
+/* CONTACT */
+.clink{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;border:1px solid var(--border);text-decoration:none;transition:background .15s}
+.clink:active{background:var(--card2)}
+.cico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cico.g{background:rgba(245,166,35,.15)}
+.cico.p{background:rgba(255,107,0,.15)}
+.cico.t{background:rgba(55,138,221,.15)}
+.cico.i{background:rgba(255,60,172,.15)}
+.clbl h3{font-size:13px;font-weight:800;color:var(--text);margin-bottom:2px}
+.clbl p{font-size:12px;color:var(--muted)}
+.carr{margin-left:auto;color:var(--muted);font-size:20px}
+
+/* MY ORDERS */
+.ocard{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:10px;border:1px solid var(--border)}
+.oh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.oid{font-size:13px;font-weight:800}
+.odate{font-size:11px;color:var(--muted);margin-top:2px}
+.ostatus{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;background:rgba(245,166,35,.12);color:var(--gold)}
+.oitem{font-size:12px;color:var(--muted);padding:2px 0}
+.ototal{font-size:14px;font-weight:800;color:var(--gold);margin-top:8px}
+
+/* SCREENS */
+.screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;animation:sup .25s ease}
 .screen.on{display:block}
-@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.scr-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:36px;height:36px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
-.scr-back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:36px;height:36px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
-.detail-hero{width:100%;aspect-ratio:4/3;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;overflow:hidden}
-.detail-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.detail-body{padding:20px}
-.detail-name{font-size:22px;font-weight:700;margin-bottom:8px}
-.detail-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
-.detail-price{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:22px}
-.qty-row{display:flex;align-items:center;gap:18px;margin-bottom:22px}
-.qty-btn{background:var(--card2);border:1px solid var(--border);border-radius:10px;width:44px;height:44px;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.qty-n{font-size:20px;font-weight:700;min-width:28px;text-align:center}
-.big-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:16px;font-weight:700;padding:16px;cursor:pointer;letter-spacing:.3px}
-.big-btn:active{opacity:.85}
-.big-btn.orange{background:var(--orange);color:#fff}
-.big-btn.green{background:var(--green);color:#fff}
-.cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
-.ci{background:var(--card);border-radius:var(--r);padding:12px;display:flex;gap:12px;align-items:center}
-.ci-img{width:58px;height:58px;border-radius:10px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden}
-.ci-img img{width:100%;height:100%;object-fit:cover}
-.ci-info{flex:1;min-width:0}
-.ci-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ci-price{font-size:13px;color:var(--gold);font-weight:600;margin-top:3px}
-.ci-qty{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.cq-btn{background:var(--card2);border:none;border-radius:7px;width:30px;height:30px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.cq-n{font-size:14px;font-weight:700;min-width:18px;text-align:center}
-.total-row{background:var(--card);border-radius:var(--r);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.total-lbl{font-size:14px;color:var(--muted)}
-.total-val{font-size:20px;font-weight:700;color:var(--gold)}
-.empty-box{text-align:center;padding:60px 20px}
-.empty-ico{font-size:60px;margin-bottom:14px}
-.empty-txt{font-size:15px;color:var(--muted)}
-.form-title{font-size:17px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.fb{background:var(--card);border:none;border-radius:10px;width:36px;height:36px;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.fg{margin-bottom:14px}
-.fl{font-size:11px;color:var(--muted);margin-bottom:7px;display:block;letter-spacing:.5px;text-transform:uppercase}
-.fi{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:13px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+@keyframes sup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.scr-x{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:34px;height:34px;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.scr-back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:34px;height:34px;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.dhero{width:100%;aspect-ratio:4/3;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;overflow:hidden}
+.dhero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.dhero span{position:relative;z-index:1}
+.dbody{padding:20px}
+.dname{font-family:'Bangers',cursive;font-size:28px;letter-spacing:1px;margin-bottom:6px}
+.ddesc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.dprice{font-family:'Bangers',cursive;font-size:30px;color:var(--gold);letter-spacing:.5px;margin-bottom:20px}
+.qrow{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.qbtn{background:var(--card2);border:1px solid var(--border);border-radius:10px;width:42px;height:42px;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.qn{font-family:'Bangers',cursive;font-size:22px;min-width:28px;text-align:center}
+
+/* CART */
+.ci{background:var(--card);border-radius:var(--r);padding:11px;display:flex;gap:11px;align-items:center;margin-bottom:8px}
+.cimg{width:56px;height:56px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.cinfo{flex:1;min-width:0}
+.cname{font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cprice{font-size:13px;color:var(--gold);font-weight:700;margin-top:3px}
+.cqty{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.cqbtn{background:var(--card2);border:none;border-radius:7px;width:30px;height:30px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cqn{font-family:'Bangers',cursive;font-size:16px;min-width:18px;text-align:center}
+.total-row{background:var(--card);border-radius:var(--r);padding:14px;display:flex;justify-content:space-between;align-items:center;margin:16px 0 12px}
+.total-lbl{font-size:14px;color:var(--muted);font-weight:700}
+.total-val{font-family:'Bangers',cursive;font-size:22px;color:var(--gold);letter-spacing:.5px}
+
+/* FORM */
+.fg{margin-bottom:13px}
+.fl{font-size:11px;color:var(--muted);margin-bottom:6px;display:block;letter-spacing:.4px;text-transform:uppercase;font-weight:800}
+.fi{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:12px 13px;outline:none;-webkit-appearance:none;transition:border-color .2s;font-family:'Nunito',sans-serif}
 .fi:focus{border-color:var(--gold)}
+
+/* BUTTONS */
+.big-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:15px;font-weight:800;padding:14px;cursor:pointer;font-family:'Nunito',sans-serif;letter-spacing:.3px}
+.big-btn:active{opacity:.85}
+.big-btn.green{background:var(--green2);color:#fff}
+.big-btn.orange{background:var(--orange);color:#fff}
+
+/* EMPTY */
+.empty{text-align:center;padding:50px 20px}
+.empty-ico{font-size:56px;margin-bottom:12px}
+.empty-txt{font-size:14px;color:var(--muted);font-weight:700}
+
+/* SUCCESS */
 .success-box{text-align:center;padding:60px 20px}
 .sico{font-size:72px;margin-bottom:20px}
-.stitle{font-size:22px;font-weight:700;color:var(--gold);margin-bottom:10px}
-.stxt{font-size:14px;color:var(--muted);line-height:1.7}
-.order-card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;border:1px solid var(--border)}
-.oh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.oid{font-size:13px;font-weight:700}
-.odate{font-size:11px;color:var(--muted);margin-top:2px}
-.ostatus{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(245,166,35,.12);color:var(--gold)}
-.oitem{font-size:13px;color:var(--muted);padding:2px 0}
-.ototal{font-size:14px;font-weight:700;color:var(--gold);margin-top:8px}
-.clink{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1px solid var(--border);text-decoration:none;transition:background .15s}
-.clink:active{background:var(--card2)}
-.cico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.cico.ph{background:rgba(245,166,35,.15)}
-.cico.ig{background:rgba(255,60,172,.15)}
-.cico.tg{background:rgba(55,138,221,.15)}
-.clbl h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
-.clbl p{font-size:13px;color:var(--muted)}
-.carr{margin-left:auto;color:var(--muted);font-size:20px;line-height:1}
-.scr-pad{padding:20px 16px 100px}
+.stitle{font-family:'Bangers',cursive;font-size:28px;color:var(--gold);margin-bottom:10px;letter-spacing:1px}
+.stxt{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:30px}
+
+/* SCREN PAD */
+.sp{padding:18px 14px 100px}
+.ftitle{font-family:'Bangers',cursive;font-size:22px;letter-spacing:1px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.fb-btn{background:var(--card);border:none;border-radius:10px;width:34px;height:34px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 </style>
 </head>
 <body>
 
-<button class="close-btn" onclick="tg.close()">✕</button>
+<button class="x-btn" onclick="tg.close()">✕</button>
 
 <div class="header">
   <div class="hrow">
-    <div class="logo">🍔</div>
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Family Burger" style="width:100%;height:100%;border-radius:50%;object-fit:cover">
+    </div>
     <div class="htitle">
-      <h1>Family Burger</h1>
+      <h1>FAMILY BURGER</h1>
       <p>Tez va mazali yetkazib berish</p>
     </div>
     <button class="cart-fab" onclick="openCart()">
-      🛒
-      <span class="cart-badge" id="cartBadge">0</span>
+      🛒<span class="cbadge" id="cbadge">0</span>
     </button>
   </div>
   <div class="tabs">
-    <button class="tab on" onclick="nav('catalog',this)"><span class="tab-ico">🍔</span>Catalog</button>
-    <button class="tab" onclick="nav('orders',this)"><span class="tab-ico">📦</span>My Orders</button>
-    <button class="tab" onclick="nav('contact',this)"><span class="tab-ico">📞</span>Contact</button>
+    <button class="tab on" onclick="nav('home',this)"><span class="tab-ico">🏠</span>Bosh</button>
+    <button class="tab" onclick="nav('catalog',this)"><span class="tab-ico">🍔</span>Menyu</button>
+    <button class="tab" onclick="nav('orders',this)"><span class="tab-ico">📦</span>Buyurtmalar</button>
+    <button class="tab" onclick="nav('contact',this)"><span class="tab-ico">📞</span>Kontakt</button>
   </div>
 </div>
 
-<div class="page on" id="page-catalog">
+<!-- HOME -->
+<div class="page on" id="page-home">
+  <div class="hero-banner">
+    <div class="hero-tag">✨ Haftaning 7 kuni ochiq</div>
+    <div class="hero-title">FAMILY<br><span>BURGER</span></div>
+    <div class="hero-sub">Mazali burgerlar, toza ingredientlar, tez yetkazib berish 🚀</div>
+    <button class="hero-btn" onclick="nav('catalog', document.querySelectorAll('.tab')[1])">🍟 Menyuni ko'rish</button>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">20+</div><div class="hstat-l">Taomlar</div></div>
+      <div class="hstat"><div class="hstat-n">15+</div><div class="hstat-l">Ichimliklar</div></div>
+      <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Muzqaymoq</div></div>
+    </div>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>🍔 Klassik Burger</span><span>🥤 Arktea</span><span>🍦 Muzqaymoq</span>
+      <span>🍟 Kartoshka fri</span><span>🥛 Milkshake</span><span>🧁 San Sebastyan</span>
+      <span>🍔 Patira Shashlik</span><span>🥤 Limonad</span><span>🍦 Choco Dream</span>
+      <span>🍟 Onion Rings</span><span>🥛 Iced Coffee</span><span>🧁 Shirinlilar</span>
+      <span>🍔 Klassik Burger</span><span>🥤 Arktea</span><span>🍦 Muzqaymoq</span>
+      <span>🍟 Kartoshka fri</span><span>🥛 Milkshake</span><span>🧁 San Sebastyan</span>
+    </div>
+  </div>
+
+  <div class="sec">🔥 Aksiyalar</div>
+  <div class="special-grid">
+    <div class="scard red">
+      <span class="semoji">👨‍👩‍👧‍👦</span>
+      <div class="stitle">Family Feast</div>
+      <div class="sdesc">4 ta burger + 4 Cola + 2 porsiya fri — barchasi!</div>
+      <span class="sprice">120.000 so'm</span>
+    </div>
+    <div class="scard yellow">
+      <span class="semoji">🎉</span>
+      <div class="stitle">Kids Meal</div>
+      <div class="sdesc">Mini burger + kichik fri + sharbat + muzqaymoq sovg'a!</div>
+      <span class="sprice">35.000 so'm</span>
+    </div>
+    <div class="scard dark">
+      <span class="semoji">🍔+🍦</span>
+      <div class="stitle">Burger & Ice Cream</div>
+      <div class="sdesc">Istalgan burger + istalgan muzqaymoq maxsus narxda.</div>
+      <span class="sprice">45.000 so'm</span>
+    </div>
+  </div>
+</div>
+
+<!-- CATALOG -->
+<div class="page" id="page-catalog">
   <div class="cat-grid">
-    <div class="cat-card on" onclick="selectCat('Burgerlar',this)">
-      <div class="cat-icon">🍔</div>
+    <div class="cat-card on" onclick="selCat('Burgerlar',this)">
+      <div class="cat-ico">🍔</div>
       <div class="cat-name">Burgerlar</div>
     </div>
-    <div class="cat-card" onclick="selectCat('Ichimliklar',this)">
-      <div class="cat-icon">🥤</div>
+    <div class="cat-card" onclick="selCat('Ichimliklar',this)">
+      <div class="cat-ico">🥤</div>
       <div class="cat-name">Ichimliklar</div>
     </div>
-    <div class="cat-card" onclick="selectCat('Shirinliklar',this)">
-      <div class="cat-icon">🍰</div>
+    <div class="cat-card" onclick="selCat('Shirinliklar',this)">
+      <div class="cat-ico">🍰</div>
       <div class="cat-name">Shirinliklar</div>
     </div>
   </div>
-  <div class="sec-title" id="catTitle">Burgerlar</div>
-  <div class="prod-grid" id="prodGrid"></div>
+  <div class="sec" id="catTitle">Burgerlar</div>
+  <div class="pgrid" id="pgrid"></div>
 </div>
 
+<!-- ORDERS -->
 <div class="page" id="page-orders">
-  <div class="sec-title">Mening buyurtmalarim</div>
+  <div class="sec">📦 Buyurtmalarim</div>
   <div id="ordersList"></div>
 </div>
 
+<!-- CONTACT -->
 <div class="page" id="page-contact">
-  <div class="sec-title">Biz bilan bogʻlaning</div>
-  <a class="clink" href="tel:+998901234567">
-    <div class="cico ph">📞</div>
-    <div class="clbl"><h3>Telefon</h3><p>+998 90 123 45 67</p></div>
+  <div class="sec">📞 Biz bilan bog'laning</div>
+  <a class="clink" href="tel:+998702230876">
+    <div class="cico g">📞</div>
+    <div class="clbl"><h3>Telefon</h3><p>+998 70 223 08 76</p></div>
     <span class="carr">›</span>
   </a>
   <a class="clink" href="https://instagram.com/familyburger_uz" target="_blank">
-    <div class="cico ig">📸</div>
+    <div class="cico i">📸</div>
     <div class="clbl"><h3>Instagram</h3><p>@familyburger_uz</p></div>
     <span class="carr">›</span>
   </a>
   <a class="clink" href="https://t.me/familyburger_uz" target="_blank">
-    <div class="cico tg">✈️</div>
-    <div class="clbl"><h3>Telegram</h3><p>@familyburger_uz</p></div>
+    <div class="cico t">✈️</div>
+    <div class="clbl"><h3>Telegram kanal</h3><p>@familyburger_uz</p></div>
     <span class="carr">›</span>
   </a>
-</div>
-
-<div class="screen" id="scrDetail">
-  <button class="scr-close" onclick="closeScr('scrDetail')">✕</button>
-  <div class="detail-hero" id="dHero"></div>
-  <div class="detail-body">
-    <div class="detail-name" id="dName"></div>
-    <div class="detail-desc" id="dDesc"></div>
-    <div class="detail-price" id="dPrice"></div>
-    <div class="qty-row">
-      <button class="qty-btn" onclick="dq(-1)">−</button>
-      <span class="qty-n" id="dQty">1</span>
-      <button class="qty-btn" onclick="dq(1)">+</button>
-    </div>
-    <button class="big-btn" onclick="addFromDetail()">🛒 Savatchaga qoʻshish</button>
+  <div class="clink" style="cursor:default">
+    <div class="cico p">📍</div>
+    <div class="clbl"><h3>Manzil</h3><p>Xorazm, Xonqa tumani, Malikani to'g'risi</p></div>
+  </div>
+  <div class="clink" style="cursor:default">
+    <div class="cico g">🕐</div>
+    <div class="clbl"><h3>Ish vaqti</h3><p>Du-Sha: 10:00 – 22:00</p></div>
   </div>
 </div>
 
+<!-- PRODUCT DETAIL -->
+<div class="screen" id="scrDetail">
+  <button class="scr-x" onclick="closeScr('scrDetail')">✕</button>
+  <div class="dhero" id="dHero"></div>
+  <div class="dbody">
+    <div class="dname" id="dName"></div>
+    <div class="ddesc" id="dDesc"></div>
+    <div class="dprice" id="dPrice"></div>
+    <div class="qrow">
+      <button class="qbtn" onclick="dq(-1)">−</button>
+      <span class="qn" id="dQty">1</span>
+      <button class="qbtn" onclick="dq(1)">+</button>
+    </div>
+    <button class="big-btn" onclick="addFromDetail()">🛒 Savatchaga qo'shish</button>
+  </div>
+</div>
+
+<!-- CART SCREEN -->
 <div class="screen" id="scrCart">
-  <div class="scr-pad">
-    <div class="form-title">
-      <button class="fb" onclick="closeScr('scrCart')">‹</button>
-      Savatcha
+  <div class="sp">
+    <div class="ftitle">
+      <button class="fb-btn" onclick="closeScr('scrCart')">‹</button>
+      🛒 Savatcha
     </div>
     <div id="cartBody"></div>
   </div>
 </div>
 
+<!-- CHECKOUT SCREEN -->
 <div class="screen" id="scrCheckout">
-  <div class="scr-pad">
-    <div class="form-title">
-      <button class="fb" onclick="closeScr('scrCheckout')">‹</button>
-      Buyurtma berish
+  <div class="sp">
+    <div class="ftitle">
+      <button class="fb-btn" onclick="closeScr('scrCheckout')">‹</button>
+      📝 Buyurtma berish
     </div>
-    <div class="fg"><label class="fl">Ismingiz</label><input class="fi" id="iName" type="text" placeholder="Toʻliq ismingiz"></div>
+    <div class="fg"><label class="fl">Ismingiz</label><input class="fi" id="iName" type="text" placeholder="To'liq ismingiz"></div>
     <div class="fg"><label class="fl">Telefon</label><input class="fi" id="iPhone" type="tel" placeholder="+998 90 000 00 00"></div>
-    <div class="fg"><label class="fl">Manzil</label><input class="fi" id="iAddr" type="text" placeholder="Koʻcha, uy raqami"></div>
+    <div class="fg"><label class="fl">Manzil</label><input class="fi" id="iAddr" type="text" placeholder="Ko'cha, uy raqami"></div>
     <button class="big-btn orange" style="margin-top:8px" onclick="submitOrder()">✅ Buyurtmani tasdiqlash</button>
   </div>
 </div>
 
+<!-- SUCCESS -->
 <div class="screen" id="scrSuccess">
   <div class="success-box">
     <div class="sico">🎉</div>
-    <div class="stitle">Buyurtma qabul qilindi!</div>
-    <div class="stxt">Tez orada siz bilan bogʻlanamiz va buyurtmangizni yetkazib beramiz 🚀</div>
-    <button class="big-btn" style="margin-top:32px" onclick="goHome()">🍔 Bosh sahifaga qaytish</button>
+    <div class="stitle">BUYURTMA QABUL QILINDI!</div>
+    <div class="stxt">Tez orada siz bilan bog'lanamiz va buyurtmangizni yetkazib beramiz 🚀</div>
+    <button class="big-btn" onclick="goHome()">🏠 Bosh sahifaga qaytish</button>
   </div>
 </div>
 
@@ -225,202 +382,185 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-const DEFAULT_PRODUCTS = [
-  {id:1,name:"Classic Burger",price:25000,cat:"Burgerlar",em:"🍔",desc:"Mol goshti, yangi sabzavotlar va maxsus sous bilan"},
-  {id:2,name:"Cheese Burger",price:28000,cat:"Burgerlar",em:"🧀",desc:"Ikki qatlam pishloq, mol goshti, salat va pomidor"},
-  {id:3,name:"Chicken Burger",price:27000,cat:"Burgerlar",em:"🍗",desc:"Tandirda pishirilgan mazali tovuq goshti"},
-  {id:4,name:"Double Burger",price:35000,cat:"Burgerlar",em:"🍔",desc:"Ikki qatlam gosht, qoshimcha sous va sabzavotlar"},
-  {id:5,name:"Spicy Burger",price:30000,cat:"Burgerlar",em:"🌶️",desc:"Achchiq sous va jalapeno bilan"},
-  {id:6,name:"Coca-Cola",price:8000,cat:"Ichimliklar",em:"🥤",desc:"Sovuq Coca-Cola 0.5L"},
-  {id:7,name:"Milkshake",price:18000,cat:"Ichimliklar",em:"🧋",desc:"Sutli kokteyl — shokolad yoki vanil"},
-  {id:8,name:"Limonad",price:12000,cat:"Ichimliklar",em:"🍋",desc:"Toza limondan tayyorlangan serinlatuvchi ichimlik"},
-  {id:9,name:"Fanta",price:8000,cat:"Ichimliklar",em:"🍊",desc:"Sovuq Fanta apelsin 0.5L"},
-  {id:10,name:"Donut",price:10000,cat:"Shirinliklar",em:"🍩",desc:"Yangi pishirilgan shirinlik glazur bilan"},
-  {id:11,name:"Cheesecake",price:22000,cat:"Shirinliklar",em:"🍰",desc:"New York uslubida tayyorlangan cheesecake"},
-  {id:12,name:"Ice Cream",price:9000,cat:"Shirinliklar",em:"🍦",desc:"Tabiiy ingredientlardan qilingan muzqaymoq"}
-];
+const JB_ID  = "69d77d55aaba882197dd1746";
+const JB_KEY = "$2a$10$nRkSTdJDfYyxIy84qlZOEufkHuxqWdmACat3IUXajUiHIFf8Uo1Eu";
+const BOT_TOKEN = "8796024744:AAHgqewn8vc4JieUw9Zl9Bx7BdSWmA6ZM5Q";
+const ADMIN_ID  = "8321214528";
 
-let PRODUCTS = JSON.parse(localStorage.getItem('fb_products') || 'null') || DEFAULT_PRODUCTS;
-let cart = JSON.parse(localStorage.getItem('fb_cart') || '{}');
-let orders = JSON.parse(localStorage.getItem('fb_orders') || '[]');
+let PRODUCTS = [];
+let cart = JSON.parse(localStorage.getItem('fb_cart')||'{}');
+let orders = JSON.parse(localStorage.getItem('fb_orders')||'[]');
 let curCat = 'Burgerlar';
 let curProd = null;
 let curQty = 1;
 
-function save(){
-  localStorage.setItem('fb_cart', JSON.stringify(cart));
-  localStorage.setItem('fb_orders', JSON.stringify(orders));
+function save(){ localStorage.setItem('fb_cart',JSON.stringify(cart)); localStorage.setItem('fb_orders',JSON.stringify(orders)); }
+
+async function loadProducts(){
+  document.getElementById('pgrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">⏳ Yuklanmoqda...</div>';
+  try{
+    const r = await fetch("https://api.jsonbin.io/v3/b/"+JB_ID+"/latest",{headers:{"X-Master-Key":JB_KEY,"X-Bin-Meta":"false"}});
+    const d = await r.json();
+    PRODUCTS = d.products||[];
+    renderProds();
+  }catch(e){
+    document.getElementById('pgrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">❌ Yuklab bo\'lmadi</div>';
+  }
 }
 
 function nav(name, btn){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
-  document.getElementById('page-' + name).classList.add('on');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+name).classList.add('on');
   btn.classList.add('on');
-  if(name === 'orders') renderOrders();
+  if(name==='orders') renderOrders();
+  if(name==='catalog' && PRODUCTS.length===0) loadProducts();
 }
 
-function selectCat(cat, el){
-  curCat = cat;
-  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('on'));
+function selCat(cat, el){
+  curCat=cat;
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('on'));
   el.classList.add('on');
-  document.getElementById('catTitle').textContent = cat;
+  document.getElementById('catTitle').textContent=cat;
   renderProds();
 }
 
 function renderProds(){
-  const list = PRODUCTS.filter(p => p.cat === curCat);
-  document.getElementById('prodGrid').innerHTML = list.map(p => `
-    <div class="prod-card" onclick="openDetail(${p.id})">
-      <div class="prod-thumb">
-        ${p.img ? '<img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">' : ''}
-        <span style="position:relative;z-index:1">${p.em}</span>
+  const list=PRODUCTS.filter(p=>p.cat===curCat);
+  const el=document.getElementById('pgrid');
+  if(!list.length){ el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Mahsulot yo\'q</div>'; return; }
+  el.innerHTML=list.map(p=>`
+    <div class="pcard" onclick="openDetail(${p.id})">
+      <div class="pthumb">
+        ${p.img?`<img src="${p.img}" onerror="this.style.display='none'">`:''}
+        <span>${p.em||'🍽'}</span>
       </div>
-      <div class="prod-body">
-        <div class="prod-name">${p.name}</div>
-        <div class="prod-row">
-          <span class="prod-price">${p.price.toLocaleString()} som</span>
-          <button class="plus-btn" onclick="event.stopPropagation();quickAdd(${p.id})">+</button>
+      <div class="pbody">
+        <div class="pname">${p.name}</div>
+        <div class="prow">
+          <span class="pprice">${p.price.toLocaleString()} so'm</span>
+          <button class="plus" onclick="event.stopPropagation();quickAdd(${p.id})">+</button>
         </div>
       </div>
     </div>`).join('');
 }
 
 function openDetail(id){
-  const p = PRODUCTS.find(x => x.id === id);
-  curProd = p; curQty = 1;
-  document.getElementById('dHero').innerHTML = (p.img ? '<img src="'+p.img+'" onerror="this.style.display=\'none\'">' : '') + '<span style="position:relative;z-index:1">' + p.em + '</span>';
-  document.getElementById('dName').textContent = p.name;
-  document.getElementById('dDesc').textContent = p.desc;
-  document.getElementById('dPrice').textContent = p.price.toLocaleString() + " so'm";
-  document.getElementById('dQty').textContent = 1;
+  const p=PRODUCTS.find(x=>x.id===id);
+  curProd=p; curQty=1;
+  document.getElementById('dHero').innerHTML=(p.img?`<img src="${p.img}" onerror="this.style.display='none'">`:'')+'<span>'+p.em+'</span>';
+  document.getElementById('dName').textContent=p.name;
+  document.getElementById('dDesc').textContent=p.desc||'';
+  document.getElementById('dPrice').textContent=p.price.toLocaleString()+" so'm";
+  document.getElementById('dQty').textContent=1;
   document.getElementById('scrDetail').classList.add('on');
 }
 
 function closeScr(id){ document.getElementById(id).classList.remove('on'); }
 
-function dq(d){ curQty = Math.max(1, curQty + d); document.getElementById('dQty').textContent = curQty; }
+function dq(d){ curQty=Math.max(1,curQty+d); document.getElementById('dQty').textContent=curQty; }
 
 function addFromDetail(){
   if(!curProd) return;
-  const k = String(curProd.id);
-  if(cart[k]) cart[k].qty += curQty;
-  else cart[k] = {name:curProd.name, price:curProd.price, em:curProd.em, img:curProd.img||null, qty:curQty};
+  const k=String(curProd.id);
+  if(cart[k]) cart[k].qty+=curQty;
+  else cart[k]={name:curProd.name,price:curProd.price,em:curProd.em,img:curProd.img||null,qty:curQty};
   save(); updateBadge(); closeScr('scrDetail');
-  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
+  tg.HapticFeedback&&tg.HapticFeedback.impactOccurred('light');
 }
 
 function quickAdd(id){
-  const p = PRODUCTS.find(x => x.id === id);
-  const k = String(id);
+  const p=PRODUCTS.find(x=>x.id===id);
+  const k=String(id);
   if(cart[k]) cart[k].qty++;
-  else cart[k] = {name:p.name, price:p.price, em:p.em, img:p.img||null, qty:1};
+  else cart[k]={name:p.name,price:p.price,em:p.em,img:p.img||null,qty:1};
   save(); updateBadge();
-  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
+  tg.HapticFeedback&&tg.HapticFeedback.impactOccurred('light');
 }
 
 function updateBadge(){
-  const n = Object.values(cart).reduce((s,i) => s + i.qty, 0);
-  const el = document.getElementById('cartBadge');
-  if(n > 0){ el.style.display = 'flex'; el.textContent = n; }
-  else el.style.display = 'none';
+  const n=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  const el=document.getElementById('cbadge');
+  if(n>0){el.style.display='flex';el.textContent=n;}else el.style.display='none';
 }
 
 function openCart(){ renderCart(); document.getElementById('scrCart').classList.add('on'); }
 
 function renderCart(){
-  const keys = Object.keys(cart);
-  const cb = document.getElementById('cartBody');
+  const keys=Object.keys(cart);
+  const cb=document.getElementById('cartBody');
   if(!keys.length){
-    cb.innerHTML = '<div class="empty-box"><div class="empty-ico">🛒</div><div class="empty-txt">Savatchangiz bosh</div></div>';
+    cb.innerHTML='<div class="empty"><div class="empty-ico">🛒</div><div class="empty-txt">Savatchangiz bo\'sh</div></div>';
     return;
   }
-  const total = keys.reduce((s,k) => s + cart[k].price * cart[k].qty, 0);
-  cb.innerHTML = '<div class="cart-items">' +
-    keys.map(k => '<div class="ci"><div class="ci-img">' +
-      (cart[k].img ? '<img src="'+cart[k].img+'" onerror="this.style.display=\'none\'">' : '') +
-      cart[k].em + '</div><div class="ci-info"><div class="ci-name">' + cart[k].name +
-      '</div><div class="ci-price">' + (cart[k].price * cart[k].qty).toLocaleString() + " so'm" +
-      '</div></div><div class="ci-qty"><button class="cq-btn" onclick="cqty(\''+k+'\',-1)">−</button><span class="cq-n">' +
-      cart[k].qty + '</span><button class="cq-btn" onclick="cqty(\''+k+'\',1)">+</button></div></div>').join('') +
-    '</div><div class="total-row"><span class="total-lbl">Jami:</span><span class="total-val">' +
-    total.toLocaleString() + " so'm</span></div>" +
-    '<button class="big-btn" onclick="openCheckout()">Buyurtma berish →</button>';
+  const total=keys.reduce((s,k)=>s+cart[k].price*cart[k].qty,0);
+  cb.innerHTML=keys.map(k=>`
+    <div class="ci">
+      <div class="cimg">${cart[k].img?`<img src="${cart[k].img}" onerror="this.style.display='none'">`:''}${cart[k].em}</div>
+      <div class="cinfo">
+        <div class="cname">${cart[k].name}</div>
+        <div class="cprice">${(cart[k].price*cart[k].qty).toLocaleString()} so'm</div>
+      </div>
+      <div class="cqty">
+        <button class="cqbtn" onclick="cqty('${k}',-1)">−</button>
+        <span class="cqn">${cart[k].qty}</span>
+        <button class="cqbtn" onclick="cqty('${k}',1)">+</button>
+      </div>
+    </div>`).join('')+
+    `<div class="total-row"><span class="total-lbl">Jami:</span><span class="total-val">${total.toLocaleString()} so'm</span></div>
+     <button class="big-btn" onclick="openCheckout()">📝 Buyurtma berish →</button>`;
 }
 
-function cqty(k, d){
-  cart[k].qty += d;
-  if(cart[k].qty <= 0) delete cart[k];
+function cqty(k,d){
+  cart[k].qty+=d;
+  if(cart[k].qty<=0) delete cart[k];
   save(); updateBadge(); renderCart();
 }
 
 function openCheckout(){ document.getElementById('scrCheckout').classList.add('on'); }
 
 async function submitOrder(){
-  const name = document.getElementById('iName').value.trim();
-  const phone = document.getElementById('iPhone').value.trim();
-  const addr = document.getElementById('iAddr').value.trim();
-  if(!name || !phone || !addr){ alert("Iltimos, barcha maydonlarni toldiring!"); return; }
-
-  const total = Object.values(cart).reduce((s,i) => s + i.price * i.qty, 0);
-  const itemsText = Object.values(cart).map(i => "  • " + i.em + " " + i.name + " x" + i.qty + " = " + (i.price*i.qty).toLocaleString() + " som").join("\n");
-
-  const BOT_TOKEN = "8796024744:AAHgqewn8vc4JieUw9Zl9Bx7BdSWmA6ZM5Q";
-  const ADMIN_ID = "8321214528";
-
-  const msg = "🔔 YANGI BUYURTMA!\n\n" +
-    "👤 Ism: " + name + "\n" +
-    "📞 Tel: " + phone + "\n" +
-    "🏠 Manzil: " + addr + "\n\n" +
-    "🛒 Mahsulotlar:\n" + itemsText + "\n\n" +
-    "💰 Jami: " + total.toLocaleString() + " som";
-
+  const name=document.getElementById('iName').value.trim();
+  const phone=document.getElementById('iPhone').value.trim();
+  const addr=document.getElementById('iAddr').value.trim();
+  if(!name||!phone||!addr){alert("Iltimos, barcha maydonlarni to'ldiring!");return;}
+  const total=Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
+  const itemsText=Object.values(cart).map(i=>"  • "+i.em+" "+i.name+" x"+i.qty+" = "+( i.price*i.qty).toLocaleString()+" so'm").join("\n");
+  const msg="🔔 YANGI BUYURTMA!\n\n👤 "+name+"\n📞 "+phone+"\n🏠 "+addr+"\n\n🛒 Mahsulotlar:\n"+itemsText+"\n\n💰 Jami: "+total.toLocaleString()+" so'm";
   try{
-    await fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({chat_id: ADMIN_ID, text: msg})
+    await fetch("https://api.telegram.org/bot"+BOT_TOKEN+"/sendMessage",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({chat_id:ADMIN_ID,text:msg})
     });
-  } catch(e){ console.log("Xabar yuborishda xato:", e); }
-
-  const order = {id:Date.now(), date:new Date().toLocaleDateString('uz'), items:{...cart}, total, status:'Qabul qilindi'};
+  }catch(e){}
+  const order={id:Date.now(),date:new Date().toLocaleDateString('uz'),items:{...cart},total,status:'Qabul qilindi'};
   orders.unshift(order);
-  cart = {}; save(); updateBadge();
+  cart={}; save(); updateBadge();
   closeScr('scrCheckout'); closeScr('scrCart');
   document.getElementById('scrSuccess').classList.add('on');
 }
 
 function goHome(){
   closeScr('scrSuccess');
-  nav('catalog', document.querySelector('.tab'));
+  nav('home',document.querySelector('.tab'));
 }
 
 function renderOrders(){
-  const el = document.getElementById('ordersList');
-  if(!orders.length){
-    el.innerHTML = '<div class="empty-box"><div class="empty-ico">📦</div><div class="empty-txt">Hali buyurtma yoq</div></div>';
-    return;
-  }
-  el.innerHTML = orders.map(o =>
-    '<div class="order-card"><div class="oh"><div><div class="oid">Buyurtma #' + String(o.id).slice(-4) +
-    '</div><div class="odate">' + o.date + '</div></div><div class="ostatus">' + o.status + '</div></div>' +
-    Object.values(o.items).map(i => '<div class="oitem">' + i.em + ' ' + i.name + ' x' + i.qty + '</div>').join('') +
-    '<div class="ototal">Jami: ' + o.total.toLocaleString() + " so'm</div></div>").join('');
+  const el=document.getElementById('ordersList');
+  if(!orders.length){el.innerHTML='<div class="empty"><div class="empty-ico">📦</div><div class="empty-txt">Hali buyurtma yo\'q</div></div>';return;}
+  el.innerHTML=orders.map(o=>`
+    <div class="ocard">
+      <div class="oh">
+        <div><div class="oid">Buyurtma #${String(o.id).slice(-4)}</div><div class="odate">${o.date}</div></div>
+        <div class="ostatus">${o.status}</div>
+      </div>
+      ${Object.values(o.items).map(i=>`<div class="oitem">${i.em} ${i.name} × ${i.qty}</div>`).join('')}
+      <div class="ototal">Jami: ${o.total.toLocaleString()} so'm</div>
+    </div>`).join('');
 }
 
-tg.onEvent('web_app_data', function(data){
-  try {
-    const d = JSON.parse(data);
-    if(d.action === 'sync_products'){
-      PRODUCTS = d.products;
-      localStorage.setItem('fb_products', JSON.stringify(PRODUCTS));
-      renderProds();
-    }
-  } catch(e){}
-});
-
-renderProds();
 updateBadge();
+loadProducts();
 </script>
 </body>
 </html>
