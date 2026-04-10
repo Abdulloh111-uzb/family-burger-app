@@ -2,515 +2,425 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Family Burger 🍔</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Family Burger</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{
-  --green:#1e3d0a;--green2:#2d5c12;--gold:#f5a623;--orange:#ff6b00;
-  --cream:#fdf6e3;--dark:#0e1a06;--text:#1a2e08;--muted:#5a6e4a;
-  --r:16px;--rr:24px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(30,61,10,.97);backdrop-filter:blur(12px);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid rgba(245,166,35,.15)}
-.nav-logo{font-family:'Bangers',cursive;font-size:26px;color:var(--gold);letter-spacing:1px}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:700;transition:color .2s}
-.nav-links a:hover{color:var(--gold)}
-.nav-btn{background:var(--gold)!important;color:#111!important;padding:8px 20px;border-radius:20px;font-weight:800!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:.3s}
-.mobile-menu{display:none;position:fixed;inset:0;background:rgba(14,26,6,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
-.mobile-menu.open{display:flex}
-.mobile-menu a{color:#fff;text-decoration:none;font-size:22px;font-weight:800}
-
-/* HERO */
-.hero{min-height:100vh;background:var(--dark);display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(45,92,18,.6) 0%,transparent 70%)}
-.hero-circles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-circles::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(245,166,35,.1);top:50%;left:50%;transform:translate(-50%,-50%)}
-.hero-circles::after{content:'';position:absolute;width:900px;height:900px;border-radius:50%;border:1px solid rgba(245,166,35,.06);top:50%;left:50%;transform:translate(-50%,-50%)}
-.hero-content{position:relative;z-index:2;max-width:700px}
-.hero-tag{display:inline-block;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:var(--gold);font-size:13px;font-weight:800;padding:6px 18px;border-radius:20px;letter-spacing:.5px;margin-bottom:24px;animation:fadeup .6s ease both}
-.hero-title{font-family:'Bangers',cursive;font-size:clamp(72px,12vw,130px);line-height:.9;color:#fff;letter-spacing:3px;margin-bottom:20px;animation:fadeup .6s .1s ease both}
-.hero-title span{color:var(--gold);-webkit-text-stroke:2px rgba(245,166,35,.3)}
-.hero-subtitle{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:36px;animation:fadeup .6s .2s ease both}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeup .6s .3s ease both}
-.btn-primary{background:var(--gold);color:#111;font-weight:800;font-size:15px;padding:14px 32px;border-radius:var(--rr);text-decoration:none;transition:transform .2s,box-shadow .2s}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,166,35,.4)}
-.btn-secondary{background:rgba(255,255,255,.08);color:#fff;font-weight:700;font-size:15px;padding:14px 32px;border-radius:var(--rr);text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:background .2s}
-.btn-secondary:hover{background:rgba(255,255,255,.14)}
-.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:48px;animation:fadeup .6s .4s ease both}
-.stat-num{font-family:'Bangers',cursive;font-size:36px;color:var(--gold);letter-spacing:1px}
-.stat-label{font-size:12px;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-
-/* MARQUEE */
-.marquee-bar{background:var(--green);padding:12px 0;overflow:hidden;border-top:1px solid rgba(245,166,35,.2);border-bottom:1px solid rgba(245,166,35,.2)}
-.marquee-track{display:flex;gap:48px;animation:marquee 20s linear infinite;width:max-content}
-.marquee-track span{color:rgba(255,255,255,.7);font-size:14px;font-weight:700;white-space:nowrap}
-.marquee-track span:nth-child(odd){color:var(--gold)}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* SECTIONS */
-section{padding:80px 5%}
-.section-label{display:inline-block;background:rgba(45,92,18,.1);color:var(--green2);font-size:12px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;border:1px solid rgba(45,92,18,.2)}
-.section-title{font-family:'Bangers',cursive;font-size:clamp(36px,5vw,52px);color:var(--text);letter-spacing:1px;margin-bottom:10px;line-height:1.1}
-.section-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:500px}
-.menu-header{text-align:center;margin-bottom:40px}
-.menu-header .section-sub{margin:0 auto}
-
-/* MENU TABS */
-.menu-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
-.tab-btn{background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:24px;color:var(--muted);font-size:14px;font-weight:700;padding:9px 22px;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif}
-.tab-btn:hover{border-color:var(--green2);color:var(--green2)}
-.tab-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
-
-/* MENU GRID */
-.menu-category{display:none}
-.menu-category.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.menu-card{background:#fff;border-radius:var(--rr);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;border:1px solid rgba(0,0,0,.05)}
-.menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
-.card-media{aspect-ratio:4/3;background:var(--green);position:relative;overflow:hidden}
-.card-media .media-img,.card-media .media-vid{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.card-media .media-vid{display:none}
-.card-media .media-vid.active{display:block}
-.card-media .media-img.hidden{display:none}
-.card-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;position:absolute;inset:0}
-.media-toggle{position:absolute;bottom:10px;right:10px;display:flex;gap:5px;z-index:2}
-.media-toggle button{background:rgba(0,0,0,.5);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:12px;cursor:pointer;transition:background .2s}
-.media-toggle button.active{background:var(--gold);color:#111;border-color:var(--gold)}
-.card-body{padding:16px}
-.card-name{font-size:16px;font-weight:800;margin-bottom:6px;color:var(--text)}
-.card-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-.card-footer{display:flex;align-items:center;justify-content:space-between}
-.card-price{font-family:'Bangers',cursive;font-size:20px;color:var(--green2);letter-spacing:.5px}
-
-/* SPECIALS */
-#specials{background:var(--dark)}
-#specials .section-label{background:rgba(245,166,35,.15);color:var(--gold);border-color:rgba(245,166,35,.3)}
-#specials .section-title{color:#fff}
-.specials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-top:36px}
-.special-card{border-radius:var(--rr);padding:28px;position:relative;overflow:hidden}
-.red-card{background:linear-gradient(135deg,#7b1a1a,#b02020)}
-.yellow-card{background:linear-gradient(135deg,#7a5a00,#c49000)}
-.dark-card{background:linear-gradient(135deg,#1e3d0a,#2d5c12);border:1px solid rgba(245,166,35,.2)}
-.special-emoji{font-size:48px;display:block;margin-bottom:14px}
-.special-title{font-family:'Bangers',cursive;font-size:28px;color:#fff;letter-spacing:1px;margin-bottom:8px}
-.special-desc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:16px}
-.special-price{font-family:'Bangers',cursive;font-size:26px;color:var(--gold);letter-spacing:.5px}
-
-/* CONTACT */
-#contact{background:#fff;border-top:1px solid rgba(0,0,0,.06)}
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:36px}
-.contact-item{background:var(--cream);border-radius:var(--r);padding:20px;display:flex;gap:14px;align-items:flex-start;border:1px solid rgba(0,0,0,.06)}
-.contact-icon{width:44px;height:44px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.contact-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.contact-value{font-size:14px;font-weight:700;color:var(--text);line-height:1.5}
-
-/* FOOTER */
-footer{background:var(--dark);padding:40px 5%;text-align:center}
-.footer-logo{font-family:'Bangers',cursive;font-size:28px;color:var(--gold);letter-spacing:1px;margin-bottom:20px}
-.footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;list-style:none;margin-bottom:20px}
-.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:700;transition:color .2s}
-.footer-links a:hover{color:var(--gold)}
-.footer-divider{height:1px;background:rgba(255,255,255,.08);margin:20px 0}
-.footer-copy{font-size:13px;color:rgba(255,255,255,.3)}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:14px;font-weight:700;padding:10px 24px;border-radius:24px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;border:1px solid rgba(245,166,35,.3)}
-.toast.show{opacity:1}
-
-/* ANIMATIONS */
-@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .hero-stats{gap:24px}
-  .stat-num{font-size:28px}
-  section{padding:60px 5%}
-}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--green:#2A4D12;--green2:#1e3a0d;--gold:#F5A623;--orange:#FF6B00;--bg:#111410;--bg2:#181c13;--card:#1e2419;--card2:#242b1c;--border:rgba(255,255,255,0.07);--text:#f0f0e8;--muted:#7a8070;--r:14px}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+.close-btn{position:fixed;top:12px;right:14px;z-index:9999;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.header{background:var(--green2);padding:52px 18px 0;position:sticky;top:0;z-index:100}
+.hrow{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.logo{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;flex-shrink:0;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px}
+.htitle{flex:1}
+.htitle h1{font-size:17px;font-weight:700;color:#fff;letter-spacing:.3px}
+.htitle p{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+.cart-fab{position:relative;background:var(--gold);border:none;border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:20px}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
+.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tab{flex:1;background:transparent;border:none;color:var(--muted);font-size:12px;font-weight:500;padding:10px 4px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;border-bottom:2px solid transparent;transition:all .2s}
+.tab-ico{font-size:18px}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.page{display:none;padding:20px 16px 100px;animation:up .2s ease}
+.page.on{display:block}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px}
+.cat-card{background:var(--card);border-radius:var(--r);padding:16px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;border:1.5px solid transparent;transition:all .2s}
+.cat-card:active{transform:scale(.97)}
+.cat-card.on{border-color:var(--gold);background:var(--card2)}
+.cat-icon{width:52px;height:52px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:26px}
+.cat-card.on .cat-icon{background:rgba(245,166,35,.18)}
+.cat-name{font-size:12px;font-weight:600;color:var(--text);text-align:center}
+.sec-title{font-size:15px;font-weight:700;color:var(--text);margin:18px 0 12px}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.prod-card{background:var(--card);border-radius:var(--r);overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:transform .15s}
+.prod-card:active{transform:scale(.97)}
+.prod-thumb{width:100%;aspect-ratio:1;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden}
+.prod-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.prod-body{padding:10px}
+.prod-name{font-size:13px;font-weight:600;margin-bottom:6px;line-height:1.3;color:var(--text)}
+.prod-row{display:flex;align-items:center;justify-content:space-between}
+.prod-price{font-size:13px;font-weight:700;color:var(--gold)}
+.plus-btn{background:var(--green);border:none;border-radius:8px;width:28px;height:28px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1}
+.screen{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;animation:slideup .25s ease}
+.screen.on{display:block}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.scr-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:36px;height:36px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.scr-back{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:36px;height:36px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
+.detail-hero{width:100%;aspect-ratio:4/3;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;overflow:hidden}
+.detail-hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.detail-body{padding:20px}
+.detail-name{font-size:22px;font-weight:700;margin-bottom:8px}
+.detail-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+.detail-price{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:22px}
+.qty-row{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.qty-btn{background:var(--card2);border:1px solid var(--border);border-radius:10px;width:44px;height:44px;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.qty-n{font-size:20px;font-weight:700;min-width:28px;text-align:center}
+.big-btn{width:100%;background:var(--gold);border:none;border-radius:var(--r);color:#111;font-size:16px;font-weight:700;padding:16px;cursor:pointer;letter-spacing:.3px}
+.big-btn:active{opacity:.85}
+.big-btn.orange{background:var(--orange);color:#fff}
+.big-btn.green{background:var(--green);color:#fff}
+.cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.ci{background:var(--card);border-radius:var(--r);padding:12px;display:flex;gap:12px;align-items:center}
+.ci-img{width:58px;height:58px;border-radius:10px;background:var(--green2);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-price{font-size:13px;color:var(--gold);font-weight:600;margin-top:3px}
+.ci-qty{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.cq-btn{background:var(--card2);border:none;border-radius:7px;width:30px;height:30px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cq-n{font-size:14px;font-weight:700;min-width:18px;text-align:center}
+.total-row{background:var(--card);border-radius:var(--r);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.total-lbl{font-size:14px;color:var(--muted)}
+.total-val{font-size:20px;font-weight:700;color:var(--gold)}
+.empty-box{text-align:center;padding:60px 20px}
+.empty-ico{font-size:60px;margin-bottom:14px}
+.empty-txt{font-size:15px;color:var(--muted)}
+.form-title{font-size:17px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.fb{background:var(--card);border:none;border-radius:10px;width:36px;height:36px;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.fg{margin-bottom:14px}
+.fl{font-size:11px;color:var(--muted);margin-bottom:7px;display:block;letter-spacing:.5px;text-transform:uppercase}
+.fi{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:15px;padding:13px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.fi:focus{border-color:var(--gold)}
+.success-box{text-align:center;padding:60px 20px}
+.sico{font-size:72px;margin-bottom:20px}
+.stitle{font-size:22px;font-weight:700;color:var(--gold);margin-bottom:10px}
+.stxt{font-size:14px;color:var(--muted);line-height:1.7}
+.order-card{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:12px;border:1px solid var(--border)}
+.oh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.oid{font-size:13px;font-weight:700}
+.odate{font-size:11px;color:var(--muted);margin-top:2px}
+.ostatus{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(245,166,35,.12);color:var(--gold)}
+.oitem{font-size:13px;color:var(--muted);padding:2px 0}
+.ototal{font-size:14px;font-weight:700;color:var(--gold);margin-top:8px}
+.clink{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1px solid var(--border);text-decoration:none;transition:background .15s}
+.clink:active{background:var(--card2)}
+.cico{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cico.ph{background:rgba(245,166,35,.15)}
+.cico.ig{background:rgba(255,60,172,.15)}
+.cico.tg{background:rgba(55,138,221,.15)}
+.clbl h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.clbl p{font-size:13px;color:var(--muted)}
+.carr{margin-left:auto;color:var(--muted);font-size:20px;line-height:1}
+.scr-pad{padding:20px 16px 100px}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">🍔 Family Burger</div>
-  <ul class="nav-links">
-    <li><a href="#menu">Menyu</a></li>
-    <li><a href="#specials">Aksiyalar</a></li>
-    <li><a href="#contact">Kontakt</a></li>
-    <li><a href="https://t.me/familyburger_bot" class="nav-btn">📱 Bot</a></li>
-  </ul>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+<button class="close-btn" onclick="tg.close()">✕</button>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#menu" onclick="toggleMenu()">Menyu</a>
-  <a href="#specials" onclick="toggleMenu()">Aksiyalar</a>
-  <a href="#contact" onclick="toggleMenu()">Kontakt</a>
-  <a href="https://t.me/familyburger_bot" onclick="toggleMenu()" style="color:var(--gold)">📱 Telegram Bot</a>
-</div>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-circles"></div>
-  <div class="hero-content">
-    <div class="hero-tag">✨ Haftaning 7 kuni ham ochiq</div>
-    <h1 class="hero-title">FAMILY<br><span>BURGER</span></h1>
-    <p class="hero-subtitle">Mazali burgerlar, yangilangan ichimliklar va shirinliklar — hammasi bir joyda. Har bir luqma bayram!</p>
-    <div class="hero-btns">
-      <a href="#menu" class="btn-primary">🍟 Menyuni ko'rish</a>
-      <a href="https://t.me/familyburger_bot" class="btn-secondary">📱 Buyurtma berish</a>
+<div class="header">
+  <div class="hrow">
+    <div class="logo">🍔</div>
+    <div class="htitle">
+      <h1>Family Burger</h1>
+      <p>Tez va mazali yetkazib berish</p>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Taomlar</div></div>
-      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Ichimliklar</div></div>
-      <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Muzqaymoq</div></div>
-    </div>
+    <button class="cart-fab" onclick="openCart()">
+      🛒
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
   </div>
-</section>
-
-<div class="marquee-bar">
-  <div class="marquee-track">
-    <span>🍔 Klassik Burger</span><span>🥤 Coffee</span><span>🍦 Muzqaymoq</span>
-    <span>🍟 Kartoshka fri</span><span>🥛 Limonad</span><span>🧁 San Sebastyan</span>
-    <span>🍔 Patira shashlik</span><span>🥤 Arktea</span><span>🍦 Choco Dream</span>
-    <span>🍟 Kartoshka fri</span><span>🥛 Coffee</span><span>🧁 Shirinlilar</span>
-    <span>🍔 Klassik Burger</span><span>🥤 Coffee</span><span>🍦 Muzqaymoq</span>
-    <span>🍟 Kartoshka fri</span><span>🥛 Limonad</span><span>🧁 San Sebastyan</span>
+  <div class="tabs">
+    <button class="tab on" onclick="nav('catalog',this)"><span class="tab-ico">🍔</span>Catalog</button>
+    <button class="tab" onclick="nav('orders',this)"><span class="tab-ico">📦</span>My Orders</button>
+    <button class="tab" onclick="nav('contact',this)"><span class="tab-ico">📞</span>Contact</button>
   </div>
 </div>
 
-<!-- MENU -->
-<section id="menu">
-  <div class="menu-header">
-    <div class="section-label">Our Menu</div>
-    <h2 class="section-title">Ta'mga farq qiling</h2>
-    <p class="section-sub">Har bir taom muhabbat bilan, siz va oilangiz uchun yangi pishiriladi.</p>
-  </div>
-
-  <div class="menu-tabs">
-    <button class="tab-btn active" onclick="showCategory('burgers',this)">🍔 Taomlar</button>
-    <button class="tab-btn" onclick="showCategory('drinks',this)">🥤 Ichimliklar</button>
-    <button class="tab-btn" onclick="showCategory('icecreams',this)">🍦 Muzqaymoq</button>
-    <button class="tab-btn" onclick="showCategory('sides',this)">🍟 Qo'shimcha</button>
-  </div>
-
-  <!-- BURGERS -->
-  <div id="burgers" class="menu-category active">
-    <div class="menu-card">
-      <div class="card-media" id="cm-b1">
-        <img class="media-img" src="patirashashlik.png" alt="Gamburg" onerror="this.style.display='none'">
-        <div class="card-emoji">🍔</div>
-        <video class="media-vid" src="indians.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b1',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b1',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Gamburg</div>
-        <div class="card-desc">Qo'sh mol go'shti, cheddar pishloq, salat, pomidor va maxsus sous</div>
-        <div class="card-footer"><div class="card-price">14.000 so'm</div></div>
-      </div>
+<div class="page on" id="page-catalog">
+  <div class="cat-grid">
+    <div class="cat-card on" onclick="selectCat('Burgerlar',this)">
+      <div class="cat-icon">🍔</div>
+      <div class="cat-name">Burgerlar</div>
     </div>
-
-    <div class="menu-card">
-      <div class="card-media" id="cm-b2">
-        <img class="media-img" src="bbq-smoky-king.jpg" alt="Patira shashlik" onerror="this.style.display='none'">
-        <div class="card-emoji">🥩</div>
-        <video class="media-vid" src="bbq-smoky-king.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b2',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b2',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Patira shashlik</div>
-        <div class="card-desc">Grilli mol go'shti, dudlangan BBQ sous, qovurilgan piyoz</div>
-        <div class="card-footer"><div class="card-price">40.000 so'm</div></div>
-      </div>
+    <div class="cat-card" onclick="selectCat('Ichimliklar',this)">
+      <div class="cat-icon">🥤</div>
+      <div class="cat-name">Ichimliklar</div>
     </div>
-
-    <div class="menu-card">
-      <div class="card-media" id="cm-b3">
-        <img class="media-img" src="veggie-delight.jpg" alt="Patira Gamburg" onerror="this.style.display='none'">
-        <div class="card-emoji">🍞</div>
-        <video class="media-vid" src="veggie-delight.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b3',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b3',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Patira Gamburg</div>
-        <div class="card-desc">Avokado, yangi sabzavotlar, brioche non bilan</div>
-        <div class="card-footer"><div class="card-price">25.000 so'm</div></div>
-      </div>
-    </div>
-
-    <div class="menu-card">
-      <div class="card-media" id="cm-b4">
-        <img class="media-img" src="spicy-fiesta.jpg" alt="Club Sendvich" onerror="this.style.display='none'">
-        <div class="card-emoji">🥖</div>
-        <video class="media-vid" src="spicy-fiesta.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b4',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b4',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Club Sendvichlari</div>
-        <div class="card-desc">Achchiq sous, pepper jack pishloq, salqin ko'kat bilan</div>
-        <div class="card-footer"><div class="card-price">34.000 so'm</div></div>
-      </div>
-    </div>
-
-    <div class="menu-card">
-      <div class="card-media" id="cm-b5">
-        <img class="media-img" src="crispy-chicken.jpg" alt="Burger" onerror="this.style.display='none'">
-        <div class="card-emoji">🍗</div>
-        <video class="media-vid" src="crispy-chicken.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b5',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b5',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Burger</div>
-        <div class="card-desc">Qovurilgan tovuq, asal-xantal sous, tuzlangan bodring</div>
-        <div class="card-footer"><div class="card-price">25.000 so'm</div></div>
-      </div>
-    </div>
-
-    <div class="menu-card">
-      <div class="card-media" id="cm-b6">
-        <img class="media-img" src="kids-mini.jpg" alt="Kartoshka fri" onerror="this.style.display='none'">
-        <div class="card-emoji">🍟</div>
-        <video class="media-vid" src="kids-mini.mp4" muted loop playsinline></video>
-        <div class="media-toggle">
-          <button class="active" onclick="showImg('cm-b6',this)">📷 IMG</button>
-          <button onclick="showVid('cm-b6',this)">🎬 VIDEO</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-name">Kartoshka fri</div>
-        <div class="card-desc">Oltin rang, qaynoq, tuz va o'tlar bilan mazali fri</div>
-        <div class="card-footer"><div class="card-price">20.000 so'm</div></div>
-      </div>
+    <div class="cat-card" onclick="selectCat('Shirinliklar',this)">
+      <div class="cat-icon">🍰</div>
+      <div class="cat-name">Shirinliklar</div>
     </div>
   </div>
+  <div class="sec-title" id="catTitle">Burgerlar</div>
+  <div class="prod-grid" id="prodGrid"></div>
+</div>
 
-  <!-- DRINKS -->
-  <div id="drinks" class="menu-category">
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🥤</div></div>
-      <div class="card-body"><div class="card-name">Shishali cola</div><div class="card-desc">Muzli, limon bilan sovuq cola</div><div class="card-footer"><div class="card-price">4.000 so'm</div></div></div>
+<div class="page" id="page-orders">
+  <div class="sec-title">Mening buyurtmalarim</div>
+  <div id="ordersList"></div>
+</div>
+
+<div class="page" id="page-contact">
+  <div class="sec-title">Biz bilan bogʻlaning</div>
+  <a class="clink" href="tel:+998901234567">
+    <div class="cico ph">📞</div>
+    <div class="clbl"><h3>Telefon</h3><p>+998 90 123 45 67</p></div>
+    <span class="carr">›</span>
+  </a>
+  <a class="clink" href="https://instagram.com/familyburger_uz" target="_blank">
+    <div class="cico ig">📸</div>
+    <div class="clbl"><h3>Instagram</h3><p>@familyburger_uz</p></div>
+    <span class="carr">›</span>
+  </a>
+  <a class="clink" href="https://t.me/familyburger_uz" target="_blank">
+    <div class="cico tg">✈️</div>
+    <div class="clbl"><h3>Telegram</h3><p>@familyburger_uz</p></div>
+    <span class="carr">›</span>
+  </a>
+</div>
+
+<div class="screen" id="scrDetail">
+  <button class="scr-close" onclick="closeScr('scrDetail')">✕</button>
+  <div class="detail-hero" id="dHero"></div>
+  <div class="detail-body">
+    <div class="detail-name" id="dName"></div>
+    <div class="detail-desc" id="dDesc"></div>
+    <div class="detail-price" id="dPrice"></div>
+    <div class="qty-row">
+      <button class="qty-btn" onclick="dq(-1)">−</button>
+      <span class="qty-n" id="dQty">1</span>
+      <button class="qty-btn" onclick="dq(1)">+</button>
     </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🧋</div></div>
-      <div class="card-body"><div class="card-name">Milkshake</div><div class="card-desc">Qalin sutli kokteyl — shokolad yoki vanil</div><div class="card-footer"><div class="card-price">12.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍋</div></div>
-      <div class="card-body"><div class="card-name">Limonad</div><div class="card-desc">Toza limondan tayyorlangan serinlatuvchi</div><div class="card-footer"><div class="card-price">8.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍵</div></div>
-      <div class="card-body"><div class="card-name">Arktea</div><div class="card-desc">Sovuq choy, limon va nanadan tayyorlangan</div><div class="card-footer"><div class="card-price">10.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍹</div></div>
-      <div class="card-body"><div class="card-name">Fruit Punch</div><div class="card-desc">Mevali tabiiy sharbat — yangilangan</div><div class="card-footer"><div class="card-price">9.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">☕</div></div>
-      <div class="card-body"><div class="card-name">Iced Coffee</div><div class="card-desc">Sovuq qahva, sut ko'pigi bilan</div><div class="card-footer"><div class="card-price">12.000 so'm</div></div></div>
-    </div>
+    <button class="big-btn" onclick="addFromDetail()">🛒 Savatchaga qoʻshish</button>
   </div>
+</div>
 
-  <!-- ICE CREAMS -->
-  <div id="icecreams" class="menu-category">
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍦</div></div>
-      <div class="card-body"><div class="card-name">Soft Serve Vanilla</div><div class="card-desc">Yumshoq vanil muzqaymoq</div><div class="card-footer"><div class="card-price">8.000 so'm</div></div></div>
+<div class="screen" id="scrCart">
+  <div class="scr-pad">
+    <div class="form-title">
+      <button class="fb" onclick="closeScr('scrCart')">‹</button>
+      Savatcha
     </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍫</div></div>
-      <div class="card-body"><div class="card-name">Choco Dream</div><div class="card-desc">Shokolad qoplamali muzqaymoq</div><div class="card-footer"><div class="card-price">10.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍓</div></div>
-      <div class="card-body"><div class="card-name">Strawberry Swirl</div><div class="card-desc">Qulupnay va vanil aralashmasi</div><div class="card-footer"><div class="card-price">10.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🌈</div></div>
-      <div class="card-body"><div class="card-name">Rainbow Sundae</div><div class="card-desc">Rangli qoplama va mevalar bilan</div><div class="card-footer"><div class="card-price">15.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍌</div></div>
-      <div class="card-body"><div class="card-name">Banana Split</div><div class="card-desc">Banan, 3 xil muzqaymoq, krem</div><div class="card-footer"><div class="card-price">18.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🧁</div></div>
-      <div class="card-body"><div class="card-name">San Sebastyan</div><div class="card-desc">Toza pishirilgan cheesecake</div><div class="card-footer"><div class="card-price">22.000 so'm</div></div></div>
-    </div>
+    <div id="cartBody"></div>
   </div>
+</div>
 
-  <!-- SIDES -->
-  <div id="sides" class="menu-category">
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🍟</div></div>
-      <div class="card-body"><div class="card-name">Crispy Fries</div><div class="card-desc">Oltin qovurilgan fri, tuz va o'tlar bilan</div><div class="card-footer"><div class="card-price">12.000 so'm</div></div></div>
+<div class="screen" id="scrCheckout">
+  <div class="scr-pad">
+    <div class="form-title">
+      <button class="fb" onclick="closeScr('scrCheckout')">‹</button>
+      Buyurtma berish
     </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🧅</div></div>
-      <div class="card-body"><div class="card-name">Onion Rings</div><div class="card-desc">Pivoli xamirda qovurilgan piyoz halqasi</div><div class="card-footer"><div class="card-price">14.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🥗</div></div>
-      <div class="card-body"><div class="card-name">Garden Salad</div><div class="card-desc">Yangi ko'katlar, pomidor, bodring, ranch sous</div><div class="card-footer"><div class="card-price">15.000 so'm</div></div></div>
-    </div>
-    <div class="menu-card">
-      <div class="card-media"><div class="card-emoji">🌽</div></div>
-      <div class="card-body"><div class="card-name">Corn on the Cob</div><div class="card-desc">Grilli shirin makkajo'xori, sariyog' bilan</div><div class="card-footer"><div class="card-price">10.000 so'm</div></div></div>
-    </div>
+    <div class="fg"><label class="fl">Ismingiz</label><input class="fi" id="iName" type="text" placeholder="Toʻliq ismingiz"></div>
+    <div class="fg"><label class="fl">Telefon</label><input class="fi" id="iPhone" type="tel" placeholder="+998 90 000 00 00"></div>
+    <div class="fg"><label class="fl">Manzil</label><input class="fi" id="iAddr" type="text" placeholder="Koʻcha, uy raqami"></div>
+    <button class="big-btn orange" style="margin-top:8px" onclick="submitOrder()">✅ Buyurtmani tasdiqlash</button>
   </div>
-</section>
+</div>
 
-<!-- SPECIALS -->
-<section id="specials">
-  <div class="section-label" style="background:rgba(245,166,35,.15);color:var(--gold);border-color:rgba(245,166,35,.3)">Today's Deals</div>
-  <h2 class="section-title" style="color:#fff">Bizda borayotgan Skidkalar 🔥</h2>
-  <div class="specials-grid">
-    <div class="special-card red-card">
-      <span class="special-emoji">👨‍👩‍👧‍👦</span>
-      <div class="special-title">Family Feast</div>
-      <div class="special-desc">4 ta burger + 4 Cola + 2 porsiya fri — hammasini oling!</div>
-      <span class="special-price">120.000 so'm</span>
-    </div>
-    <div class="special-card yellow-card">
-      <span class="special-emoji">🎉</span>
-      <div class="special-title">Kids Meal</div>
-      <div class="special-desc">Mini burger + kichik fri + sharbat + muzqaymoq sovg'a!</div>
-      <span class="special-price">35.000 so'm</span>
-    </div>
-    <div class="special-card dark-card">
-      <span class="special-emoji">🍔+🍦</span>
-      <div class="special-title">Burger & Ice Cream</div>
-      <div class="special-desc">Istalgan burger + istalgan muzqaymoq maxsus narxda.</div>
-      <span class="special-price" style="color:var(--gold)">45.000 so'm</span>
-    </div>
+<div class="screen" id="scrSuccess">
+  <div class="success-box">
+    <div class="sico">🎉</div>
+    <div class="stitle">Buyurtma qabul qilindi!</div>
+    <div class="stxt">Tez orada siz bilan bogʻlanamiz va buyurtmangizni yetkazib beramiz 🚀</div>
+    <button class="big-btn" style="margin-top:32px" onclick="goHome()">🍔 Bosh sahifaga qaytish</button>
   </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">Biz bilan bog'laning</div>
-  <h2 class="section-title">Family Burgerga tashrif buyuring!</h2>
-  <div class="contact-grid">
-    <div class="contact-item">
-      <div class="contact-icon">📍</div>
-      <div>
-        <div class="contact-label">Manzil</div>
-        <div class="contact-value">Xorazm viloyati, Xonqa tumani, Malikani to'g'risi</div>
-      </div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">📞</div>
-      <div>
-        <div class="contact-label">Telefon raqam</div>
-        <div class="contact-value">+998 70 223 08 76</div>
-      </div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">🕐</div>
-      <div>
-        <div class="contact-label">Ishlash vaqti</div>
-        <div class="contact-value">Dushanbadan Shanbagacha: 10:00 – 22:00</div>
-      </div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon">📱</div>
-      <div>
-        <div class="contact-label">Telegram Bot</div>
-        <div class="contact-value"><a href="https://t.me/familyburger_bot" style="color:var(--green2);font-weight:800">@familyburger_bot</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-logo">🍔 Family Burger</div>
-  <ul class="footer-links">
-    <li><a href="#home">Asosiy</a></li>
-    <li><a href="#menu">Menyu</a></li>
-    <li><a href="#specials">Skidka</a></li>
-    <li><a href="#contact">Kontakt</a></li>
-  </ul>
-  <div class="footer-divider"></div>
-  <div class="footer-copy">© 2026 Family Burger. Made with ❤️ for every family.</div>
-</footer>
-
-<div class="toast" id="toast"></div>
+</div>
 
 <script>
-function showCategory(cat, btn){
-  document.querySelectorAll('.menu-category').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(cat).classList.add('active');
-  btn.classList.add('active');
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+const DEFAULT_PRODUCTS = [
+  {id:1,name:"Classic Burger",price:25000,cat:"Burgerlar",em:"🍔",desc:"Mol goshti, yangi sabzavotlar va maxsus sous bilan"},
+  {id:2,name:"Cheese Burger",price:28000,cat:"Burgerlar",em:"🧀",desc:"Ikki qatlam pishloq, mol goshti, salat va pomidor"},
+  {id:3,name:"Chicken Burger",price:27000,cat:"Burgerlar",em:"🍗",desc:"Tandirda pishirilgan mazali tovuq goshti"},
+  {id:4,name:"Double Burger",price:35000,cat:"Burgerlar",em:"🍔",desc:"Ikki qatlam gosht, qoshimcha sous va sabzavotlar"},
+  {id:5,name:"Spicy Burger",price:30000,cat:"Burgerlar",em:"🌶️",desc:"Achchiq sous va jalapeno bilan"},
+  {id:6,name:"Coca-Cola",price:8000,cat:"Ichimliklar",em:"🥤",desc:"Sovuq Coca-Cola 0.5L"},
+  {id:7,name:"Milkshake",price:18000,cat:"Ichimliklar",em:"🧋",desc:"Sutli kokteyl — shokolad yoki vanil"},
+  {id:8,name:"Limonad",price:12000,cat:"Ichimliklar",em:"🍋",desc:"Toza limondan tayyorlangan serinlatuvchi ichimlik"},
+  {id:9,name:"Fanta",price:8000,cat:"Ichimliklar",em:"🍊",desc:"Sovuq Fanta apelsin 0.5L"},
+  {id:10,name:"Donut",price:10000,cat:"Shirinliklar",em:"🍩",desc:"Yangi pishirilgan shirinlik glazur bilan"},
+  {id:11,name:"Cheesecake",price:22000,cat:"Shirinliklar",em:"🍰",desc:"New York uslubida tayyorlangan cheesecake"},
+  {id:12,name:"Ice Cream",price:9000,cat:"Shirinliklar",em:"🍦",desc:"Tabiiy ingredientlardan qilingan muzqaymoq"}
+];
+
+let PRODUCTS = JSON.parse(localStorage.getItem('fb_products') || 'null') || DEFAULT_PRODUCTS;
+let cart = JSON.parse(localStorage.getItem('fb_cart') || '{}');
+let orders = JSON.parse(localStorage.getItem('fb_orders') || '[]');
+let curCat = 'Burgerlar';
+let curProd = null;
+let curQty = 1;
+
+function save(){
+  localStorage.setItem('fb_cart', JSON.stringify(cart));
+  localStorage.setItem('fb_orders', JSON.stringify(orders));
 }
 
-function showImg(id, btn){
-  const c=document.getElementById(id);
-  const img=c.querySelector('.media-img');
-  const vid=c.querySelector('.media-vid');
-  if(img){img.classList.remove('hidden');}
-  if(vid){vid.classList.remove('active');vid.pause();}
-  c.querySelectorAll('.media-toggle button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+function nav(name, btn){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById('page-' + name).classList.add('on');
+  btn.classList.add('on');
+  if(name === 'orders') renderOrders();
 }
 
-function showVid(id, btn){
-  const c=document.getElementById(id);
-  const img=c.querySelector('.media-img');
-  const vid=c.querySelector('.media-vid');
-  if(img){img.classList.add('hidden');}
-  if(vid){vid.classList.add('active');vid.play();}
-  c.querySelectorAll('.media-toggle button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+function selectCat(cat, el){
+  curCat = cat;
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('catTitle').textContent = cat;
+  renderProds();
 }
 
-function toggleMenu(){
-  document.getElementById('mobileMenu').classList.toggle('open');
+function renderProds(){
+  const list = PRODUCTS.filter(p => p.cat === curCat);
+  document.getElementById('prodGrid').innerHTML = list.map(p => `
+    <div class="prod-card" onclick="openDetail(${p.id})">
+      <div class="prod-thumb">
+        ${p.img ? '<img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">' : ''}
+        <span style="position:relative;z-index:1">${p.em}</span>
+      </div>
+      <div class="prod-body">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-row">
+          <span class="prod-price">${p.price.toLocaleString()} som</span>
+          <button class="plus-btn" onclick="event.stopPropagation();quickAdd(${p.id})">+</button>
+        </div>
+      </div>
+    </div>`).join('');
 }
 
-// Scroll animatsiyasi
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.opacity='1';
-      e.target.style.transform='translateY(0)';
+function openDetail(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  curProd = p; curQty = 1;
+  document.getElementById('dHero').innerHTML = (p.img ? '<img src="'+p.img+'" onerror="this.style.display=\'none\'">' : '') + '<span style="position:relative;z-index:1">' + p.em + '</span>';
+  document.getElementById('dName').textContent = p.name;
+  document.getElementById('dDesc').textContent = p.desc;
+  document.getElementById('dPrice').textContent = p.price.toLocaleString() + " so'm";
+  document.getElementById('dQty').textContent = 1;
+  document.getElementById('scrDetail').classList.add('on');
+}
+
+function closeScr(id){ document.getElementById(id).classList.remove('on'); }
+
+function dq(d){ curQty = Math.max(1, curQty + d); document.getElementById('dQty').textContent = curQty; }
+
+function addFromDetail(){
+  if(!curProd) return;
+  const k = String(curProd.id);
+  if(cart[k]) cart[k].qty += curQty;
+  else cart[k] = {name:curProd.name, price:curProd.price, em:curProd.em, img:curProd.img||null, qty:curQty};
+  save(); updateBadge(); closeScr('scrDetail');
+  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
+}
+
+function quickAdd(id){
+  const p = PRODUCTS.find(x => x.id === id);
+  const k = String(id);
+  if(cart[k]) cart[k].qty++;
+  else cart[k] = {name:p.name, price:p.price, em:p.em, img:p.img||null, qty:1};
+  save(); updateBadge();
+  tg.HapticFeedback && tg.HapticFeedback.impactOccurred('light');
+}
+
+function updateBadge(){
+  const n = Object.values(cart).reduce((s,i) => s + i.qty, 0);
+  const el = document.getElementById('cartBadge');
+  if(n > 0){ el.style.display = 'flex'; el.textContent = n; }
+  else el.style.display = 'none';
+}
+
+function openCart(){ renderCart(); document.getElementById('scrCart').classList.add('on'); }
+
+function renderCart(){
+  const keys = Object.keys(cart);
+  const cb = document.getElementById('cartBody');
+  if(!keys.length){
+    cb.innerHTML = '<div class="empty-box"><div class="empty-ico">🛒</div><div class="empty-txt">Savatchangiz bosh</div></div>';
+    return;
+  }
+  const total = keys.reduce((s,k) => s + cart[k].price * cart[k].qty, 0);
+  cb.innerHTML = '<div class="cart-items">' +
+    keys.map(k => '<div class="ci"><div class="ci-img">' +
+      (cart[k].img ? '<img src="'+cart[k].img+'" onerror="this.style.display=\'none\'">' : '') +
+      cart[k].em + '</div><div class="ci-info"><div class="ci-name">' + cart[k].name +
+      '</div><div class="ci-price">' + (cart[k].price * cart[k].qty).toLocaleString() + " so'm" +
+      '</div></div><div class="ci-qty"><button class="cq-btn" onclick="cqty(\''+k+'\',-1)">−</button><span class="cq-n">' +
+      cart[k].qty + '</span><button class="cq-btn" onclick="cqty(\''+k+'\',1)">+</button></div></div>').join('') +
+    '</div><div class="total-row"><span class="total-lbl">Jami:</span><span class="total-val">' +
+    total.toLocaleString() + " so'm</span></div>" +
+    '<button class="big-btn" onclick="openCheckout()">Buyurtma berish →</button>';
+}
+
+function cqty(k, d){
+  cart[k].qty += d;
+  if(cart[k].qty <= 0) delete cart[k];
+  save(); updateBadge(); renderCart();
+}
+
+function openCheckout(){ document.getElementById('scrCheckout').classList.add('on'); }
+
+async function submitOrder(){
+  const name = document.getElementById('iName').value.trim();
+  const phone = document.getElementById('iPhone').value.trim();
+  const addr = document.getElementById('iAddr').value.trim();
+  if(!name || !phone || !addr){ alert("Iltimos, barcha maydonlarni toldiring!"); return; }
+
+  const total = Object.values(cart).reduce((s,i) => s + i.price * i.qty, 0);
+  const itemsText = Object.values(cart).map(i => "  • " + i.em + " " + i.name + " x" + i.qty + " = " + (i.price*i.qty).toLocaleString() + " som").join("\n");
+
+  const BOT_TOKEN = "8796024744:AAHgqewn8vc4JieUw9Zl9Bx7BdSWmA6ZM5Q";
+  const ADMIN_ID = "8321214528";
+
+  const msg = "🔔 YANGI BUYURTMA!\n\n" +
+    "👤 Ism: " + name + "\n" +
+    "📞 Tel: " + phone + "\n" +
+    "🏠 Manzil: " + addr + "\n\n" +
+    "🛒 Mahsulotlar:\n" + itemsText + "\n\n" +
+    "💰 Jami: " + total.toLocaleString() + " som";
+
+  try{
+    await fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({chat_id: ADMIN_ID, text: msg})
+    });
+  } catch(e){ console.log("Xabar yuborishda xato:", e); }
+
+  const order = {id:Date.now(), date:new Date().toLocaleDateString('uz'), items:{...cart}, total, status:'Qabul qilindi'};
+  orders.unshift(order);
+  cart = {}; save(); updateBadge();
+  closeScr('scrCheckout'); closeScr('scrCart');
+  document.getElementById('scrSuccess').classList.add('on');
+}
+
+function goHome(){
+  closeScr('scrSuccess');
+  nav('catalog', document.querySelector('.tab'));
+}
+
+function renderOrders(){
+  const el = document.getElementById('ordersList');
+  if(!orders.length){
+    el.innerHTML = '<div class="empty-box"><div class="empty-ico">📦</div><div class="empty-txt">Hali buyurtma yoq</div></div>';
+    return;
+  }
+  el.innerHTML = orders.map(o =>
+    '<div class="order-card"><div class="oh"><div><div class="oid">Buyurtma #' + String(o.id).slice(-4) +
+    '</div><div class="odate">' + o.date + '</div></div><div class="ostatus">' + o.status + '</div></div>' +
+    Object.values(o.items).map(i => '<div class="oitem">' + i.em + ' ' + i.name + ' x' + i.qty + '</div>').join('') +
+    '<div class="ototal">Jami: ' + o.total.toLocaleString() + " so'm</div></div>").join('');
+}
+
+tg.onEvent('web_app_data', function(data){
+  try {
+    const d = JSON.parse(data);
+    if(d.action === 'sync_products'){
+      PRODUCTS = d.products;
+      localStorage.setItem('fb_products', JSON.stringify(PRODUCTS));
+      renderProds();
     }
-  });
-},{threshold:0.1});
-
-document.querySelectorAll('.menu-card,.special-card,.contact-item').forEach(el=>{
-  el.style.opacity='0';
-  el.style.transform='translateY(20px)';
-  el.style.transition='opacity .4s ease, transform .4s ease';
-  observer.observe(el);
+  } catch(e){}
 });
+
+renderProds();
+updateBadge();
 </script>
 </body>
 </html>
